@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(QString name, QString pass, int maxUsers = 10)
+Game::Game(QString name, QString pass, int maxUsers)
 {
     m_name = name;
     m_pass = pass;

@@ -2,6 +2,8 @@
 #define QCONTROLLER_H
 
 #include <QStringList>
+#include <QtXml/QXmlInputSource>
+#include <QtXml/QXmlSimpleReader>
 
 class QController : public QObject
 {
