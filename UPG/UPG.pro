@@ -18,7 +18,10 @@ SOURCES += main.cpp \
     QParser.cpp \
     QController.cpp \
     GameActions.cpp \
-    ServiceActions.cpp
+    ServiceActions.cpp \
+    Registry.cpp \
+    Game.cpp \
+    User.cpp
 
 HEADERS += \
     App.h \
@@ -26,4 +29,9 @@ HEADERS += \
     QParser.h \
     QController.h \
     GameActions.h \
-    ServiceActions.h
+    ServiceActions.h \
+    Action.h \
+    Error.h \
+    Registry.h \
+    Game.h \
+    User.h
