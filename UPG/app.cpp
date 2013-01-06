@@ -7,4 +7,7 @@ App::App()
 
     QObject::connect(&m_parser, SIGNAL(requestReady(void*, QStringList)), &m_controller, SLOT(onRequestReady(void*, QStringList)));
     QObject::connect(&m_controller, SIGNAL(actionComplete(QList<void*>, QStringList)), &m_parser, SLOT(onActionComplete(QList<void*>, QStringList)));
+
+
 }
+

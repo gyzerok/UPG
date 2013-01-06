@@ -1,4 +1,6 @@
 #include "User.h"
+#include <QTime>
+#include "Registry.h"
 
 User::User(int uid, void* socket)
 {

@@ -21,13 +21,15 @@ public:
     User* getUser(int uid);
     Game* getGame(int gid);
 
+    QMap<int, Game*>        m_registry;
+    QMap<int, Game*>        m_games;
+    QMap<int, User*>        m_users;
+
 private:
     Registry();
 
     static Registry*        m_instance;
-    QMap<int, Game*>        m_registry;
-    QMap<int, Game*>        m_games;
-    QMap<int, User*>        m_users;
+
 };
 
 #endif // REGISTRY_H

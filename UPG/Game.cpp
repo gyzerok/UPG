@@ -1,10 +1,13 @@
 #include "Game.h"
+#include <QTime>
+#include "Registry.h"
 
-Game::Game(QString name, QString pass, int maxUsers = 10)
+Game::Game(QString name, QString pass, int maxUsers)
 {
     m_name = name;
     m_pass = pass;
     m_maxUsers = maxUsers;
+    m_gid = generateGid();
 }
 
 int Game::getGid()
@@ -28,4 +31,19 @@ Error Game::addUser(User *user)
 
     m_users.append(user);
     return SUCCESS;
+}
+
+int Game::randomInt(int low, int high)
+{
+    return qrand() % ((high + 1) - low) + low;
+}
+
+int Game::generateGid()
+{
+    Registry* registry = Registry::instance();
+    int temp = randomInt(0,500000);
+    if ( registry->m_games.contains(temp) )
+        return generateGid();
+    else
+        return temp;
 }

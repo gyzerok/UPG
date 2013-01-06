@@ -16,6 +16,9 @@ public:
     Error addUser(User* user);
 
 private:
+    int randomInt(int low, int high);
+    int generateGid();
+
     int             m_gid;
     QString         m_name;
     QString         m_pass;
