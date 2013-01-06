@@ -9,9 +9,9 @@ QParser::QParser(QString *request)
     m_xml = new QXmlStreamReader(m_request);
 }
 
-bool Parser::Next(QString *tag, QString *value)
+Error QParser::Next(QString *tag, QString *value)
 {
-    bool success = false;
+    Error success = UNKNOWN_ERROR;
     if (!m_opened)
     {
         m_opened = true;
@@ -29,7 +29,7 @@ bool Parser::Next(QString *tag, QString *value)
         if (m_xml->tokenType()!=QXmlStreamReader::EndDocument)
         {
             *value = _value;
-            success = true;
+            success = SUCCESS;
         }
     }
 

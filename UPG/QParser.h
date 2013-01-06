@@ -2,12 +2,13 @@
 #define PARSER_H
 #include <QtCore>
 #include <QString>
+#include "Error.h"
 
 class QParser
 {
 public:
     QParser(QString *request);
-    bool Next (QString *tag, QString *value);
+    Error Next (QString *tag, QString *value);
     static QString ParseResponse();
 private:
     QString m_request;
