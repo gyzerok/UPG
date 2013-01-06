@@ -12,6 +12,14 @@ void QController::onRequestReady(void* socket, QStringList parsedRequest)
     Error err = UNKNOWN_ERROR;
     QStringList response;
     QList<void*> sockets;
+
+    QString xmlRequest;
+    QXmlInputSource xmlInputSource;
+    xmlInputSource.setData(xmlRequest);
+    QXmlSimpleReader xmlParser;
+    xmlParser.parse(xmlInputSource);
+    //int requestType =
+
     sockets.clear();
     sockets.append(socket);
 
@@ -21,8 +29,8 @@ void QController::onRequestReady(void* socket, QStringList parsedRequest)
             err = ServiceActions::login(parsedRequest.value(1).toInt(), socket);
             //response = new QString(err);
             break;
-        //case Action::S_CREATE_GAME:
-
+        case Action::S_CREATE_GAME:
+            break;
 
     }
 

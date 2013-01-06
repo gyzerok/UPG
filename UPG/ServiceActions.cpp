@@ -21,7 +21,7 @@ Error ServiceActions::createGame(QString name, QString pass, int& gid)
     Registry* registry = Registry::instance();
 
     Game game(name, pass);
-    registry->addGame(game.getGid(), game);
+    registry->addGame(game.getGid(), &game);
     gid = game.getGid();
 
     return SUCCESS;
@@ -33,8 +33,8 @@ Error ServiceActions::joinGame(int uid, int gid, QList<void*>& sockets)
     Registry* registry = Registry::instance();
 
     if (registry->isGameExist(gid)) return GAME_DOES_NOT_EXIST;
-    Game game = registry->getGame(gid);
-    err = game->addUser(uid);
+    Game* game = registry->getGame(gid);
+    err = game->addUser(registry->getUser(uid));
     if (err == SUCCESS)
             registry->addUserToGame(uid, game);
 

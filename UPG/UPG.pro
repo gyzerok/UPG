@@ -5,7 +5,7 @@
 #-------------------------------------------------
 TARGET = UPG
 
-QT += core network
+QT += core network xml
 QT -= gui
 
 TEMPLATE = app
