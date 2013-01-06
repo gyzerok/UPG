@@ -1,23 +1,18 @@
-#ifndef QPARSER_H
-#define QPARSER_H
-
+#ifndef PARSER_H
+#define PARSER_H
+#include <QtCore>
 #include <QString>
-#include <QStringList>
-#include <QList>
 
-class QParser : public QObject
+class QParser
 {
-    Q_OBJECT
 public:
-    QParser();
-
-public slots:
-    void onRequestReceived(void* socket, QString request);
-    void onActionComplete(QList<void*> sockets, QStringList response);
-
-signals:
-    void requestReady(void* socket, QStringList parsedRequest);
-    void responseReady(QList<void*> sockets, QString xmlResponse);
+    QParser(QString *request);
+    bool Next (QString *tag, QString *value);
+    static QString ParseResponse();
+private:
+    QString m_request;
+    QXmlStreamReader* m_xml;
+    bool m_opened;
 };
 
-#endif // QPARSER_H
+#endif // PARSER_H
