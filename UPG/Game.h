@@ -22,20 +22,17 @@ public:
 
     int             getGid();
 
-    Error           getState(GameState& state);
-    Error           changeState(GameState state);
-    Error           getName(QString& name);
-    Error           getHost(User* user);
-    Error           getUsers(QList<User*>& users);
-    Error           getPlayers(QList<User*>& players);
+    ErrorCode       getState(GameState& state);
+    ErrorCode       changeState(GameState state);
+    ErrorCode       getName(QString& name);
+    ErrorCode       getHost(User* user);
+    ErrorCode       getUsers(QList<User*>& users);
+    ErrorCode       getPlayers(QList<User*>& players);
 
-    Error           addUser(User* user);
-    Error           setWord(QString word);
+    ErrorCode       addUser(User* user);
+    ErrorCode       setWord(QString word);
 
     bool            checkPass(QString pass);
-
-
-
 
 private:
     int             randomInt(int low, int high);

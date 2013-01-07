@@ -10,5 +10,5 @@ Error::Error()
 
 QString Error::getString(ErrorCode errorCode)
 {
-    return m_errors.value(error);
+    return m_errors.value(errorCode);
 }

@@ -70,12 +70,21 @@ ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void
     return err;
 }
 
-ErrorCode GameActions::offeraWord(Game game, QString word, void *socket, QList<void *>& sockets)
+ErrorCode GameActions::offeraWord(int gid, QString word, void *socket, QList<void *>& sockets)
 {
     ErrorCode err = UNKNOWN_ERROR;
+    Registry* registry = Registry::instance();
 
-    if ( game.m_state != game.GAME_STARTED )
-            return YOU_CAN_NOT_OFFER_A_WORD_NOW;
+    Game* game;
+    err = registry->getGame(gid, game);
 
+    Game::GameState gameState;
+    if (err == SUCCESS)
+        err = game->getState(gameState);
+
+    if (err == SUCCESS && gameState != Game::GAME_STARTED)
+        return YOU_CAN_NOT_OFFER_A_WORD_NOW;
+
+    return err;
 }
 

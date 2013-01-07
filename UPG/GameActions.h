@@ -14,7 +14,7 @@ public:
     static ErrorCode makeaWord(int gid, QString word, void* socket, QList<void*>& sockets);
     static ErrorCode guesstheWord(Game game, QString word, void* socket, QList<void*>& sockets);
     static ErrorCode makeaQuestion(Game game, QString question, void* socket, QList<void*>& sockets);
-    static ErrorCode offeraWord(Game game, QString word, void* socket, QList<void*>& sockets);
+    static ErrorCode offeraWord(int gid, QString word, void* socket, QList<void*>& sockets);
 };
 
 #endif // GAMEACTIONS_H
