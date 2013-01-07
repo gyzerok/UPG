@@ -72,6 +72,7 @@ ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void
 
 ErrorCode GameActions::guesstheWord(int gid, QString word, void *socket, QList<void *> &sockets)
 {
+    return SUCCESS;
 }
 
 ErrorCode GameActions::offeraWord(int gid, QString word, void *socket, QList<void *>& sockets)

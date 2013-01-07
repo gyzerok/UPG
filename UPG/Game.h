@@ -37,17 +37,7 @@ public:
     ErrorCode               setWord(QString word);
     ErrorCode               changeState(GameState state);
 
-    ErrorCode       getState(GameState& state);
-    ErrorCode       changeState(GameState state);
-    ErrorCode       getHost(User* user);
-    ErrorCode       getUsers(QList<User*>& users);
-    ErrorCode       getPlayers(QList<User*>& players);
-
-
-
-    ErrorCode       addUser(User* user);
-    ErrorCode       setWord(QString word);
-    ErrorCode       removeUser(User* user);
+    ErrorCode               removeUser(User* user);
 
     bool                    checkPass(QString pass);
 
