@@ -10,7 +10,7 @@ class QParser
 {
 public:
     QParser(QString *request);
-    Error next(QString *tag, QString *value);
+    ErrorCode next(QString *tag, QString *value);
 
     static QString toString(User* user);
     static QString toString(Game* game);

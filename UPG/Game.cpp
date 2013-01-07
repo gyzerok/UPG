@@ -22,28 +22,28 @@ int Game::getGid()
     return m_gid;
 }
 
-Error Game::getState(Game::GameState &state)
+ErrorCode Game::getState(Game::GameState &state)
 {
     state = m_state;
 
     return SUCCESS;
 }
 
-Error Game::getName(QString& name)
+ErrorCode Game::getName(QString& name)
 {
     name = m_name;
 
     return SUCCESS;
 }
 
-Error Game::getHost(User* user)
+ErrorCode Game::getHost(User* user)
 {
     user = m_host;
 
     return SUCCESS;
 }
 
-Error Game::setWord(QString word)
+ErrorCode Game::setWord(QString word)
 {
     m_word = word;
 
@@ -55,7 +55,7 @@ bool Game::checkPass(QString pass)
     return m_pass == pass;
 }
 
-Error Game::getUsers(QList<User*>& users)
+ErrorCode Game::getUsers(QList<User*>& users)
 {
     QList<User*> result;
     result.append(m_players);
@@ -66,14 +66,14 @@ Error Game::getUsers(QList<User*>& users)
     return SUCCESS;
 }
 
-Error Game::getPlayers(QList<User*>& players)
+ErrorCode Game::getPlayers(QList<User*>& players)
 {
     players = m_players;
 
     return SUCCESS;
 }
 
-Error Game::addUser(User *user)
+ErrorCode Game::addUser(User *user)
 {
     if (m_players.count() + m_observers.count() > m_maxUsers) return GAME_IS_FULL;
 

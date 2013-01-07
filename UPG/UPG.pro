@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     ServiceActions.cpp \
     Registry.cpp \
     Game.cpp \
-    User.cpp
+    User.cpp \
+    Error.cpp
 
 HEADERS += \
     App.h \
