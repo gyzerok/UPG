@@ -23,7 +23,6 @@ void QController::onRequestReceived(void* socket, QString request)
             break;
         case Action::S_CREATE_GAME:
             break;
-
     }
 
     QString response;

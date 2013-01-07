@@ -35,3 +35,23 @@ Error QParser::next(QString *tag, QString *value)
 
     return success;
 }
+
+QString QParser::toString(User *user)
+{
+    return "_";
+}
+
+QString QParser::toString(Game *game)
+{
+    return "_";
+}
+
+QString QParser::toString(QMap<int, User *> users)
+{
+    return "_";
+}
+
+QString QParser::toString(QMap<int, Game *> games)
+{
+    return "_";
+}
