@@ -9,25 +9,32 @@
 class Game
 {
 public:
-
     enum GameState
     {
         PREGAME,
         GAME_STARTED,
         WORD_OFFERED,
         CONTACT
-    }
+    };
 
     Game(QString name, QString pass, int maxUsers = 10);
-    int         getGid();
-    QString     getName();
-    bool        checkPass(QString pass);
-    Error       addUser(User* user);
 
-    void*       chooseHost();
+    int             getGid();
+    Error           getState(GameState& state);
+    Error           getName(QString& name);
+    Error           getHost(User* user);
+    Error           getUsers(QList<User*>& users);
+    Error           getPlayers(QList<User*>& players);
+
+    Error           addUser(User* user);
+    Error           setWord(QString word);
+
+    bool            checkPass(QString pass);
+
+    void*           chooseHost();
     //void setHost(void);
 
-    GameState m_state;
+    GameState       m_state;
 
 
 private:
@@ -38,7 +45,7 @@ private:
     QString         m_name;
     QString         m_pass;
     int             m_maxUsers;
-    QList<User*>    m_users;
+    QList<User*>    m_observers;
 
     QList<User*>    m_players;
     QString         m_word;
