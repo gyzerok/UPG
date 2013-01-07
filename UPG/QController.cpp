@@ -9,7 +9,7 @@ QController::QController()
 
 void QController::onRequestReceived(void* socket, QString request)
 {
-    Error err = UNKNOWN_ERROR;
+    ErrorCode err = UNKNOWN_ERROR;
     QList<void*> sockets;
 
     sockets.clear();
@@ -23,7 +23,6 @@ void QController::onRequestReceived(void* socket, QString request)
             break;
         case Action::S_CREATE_GAME:
             break;
-
     }
 
     QString response;

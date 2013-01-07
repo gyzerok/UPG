@@ -8,9 +8,9 @@ GameActions::GameActions()
 
 }
 
-Error GameActions::startGame(int gid, QList<void *>& sockets)
+ErrorCode GameActions::startGame(int gid, QList<void *>& sockets)
 {
-    Error err = UNKNOWN_ERROR;
+    ErrorCode err = UNKNOWN_ERROR;
 
     Registry* registry = Registry::instance();
 
@@ -39,9 +39,9 @@ Error GameActions::startGame(int gid, QList<void *>& sockets)
     return err;
 }
 
-Error GameActions::makeaWord(int gid, QString word, void* socket, QList<void *>& sockets)
+ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void *>& sockets)
 {
-    Error err = UNKNOWN_ERROR;
+    ErrorCode err = UNKNOWN_ERROR;
 
     Registry* registry = Registry::instance();
 
@@ -70,9 +70,9 @@ Error GameActions::makeaWord(int gid, QString word, void* socket, QList<void *>&
     return err;
 }
 
-Error GameActions::offeraWord(Game game, QString word, void *socket, QList<void *>& sockets)
+ErrorCode GameActions::offeraWord(Game game, QString word, void *socket, QList<void *>& sockets)
 {
-    Error err = UNKNOWN_ERROR;
+    ErrorCode err = UNKNOWN_ERROR;
 
     if ( game.m_state != game.GAME_STARTED )
             return YOU_CAN_NOT_OFFER_A_WORD_NOW;

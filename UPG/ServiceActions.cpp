@@ -5,7 +5,7 @@ ServiceActions::ServiceActions()
 {
 }
 
-Error ServiceActions::login(int uid, void* socket)
+ErrorCode ServiceActions::login(int uid, void* socket)
 {
     Registry* registry = Registry::instance();
     if (registry->isUserOnline(uid)) return USER_ALREADY_ONLINE;
@@ -16,7 +16,7 @@ Error ServiceActions::login(int uid, void* socket)
     return SUCCESS;
 }
 
-Error ServiceActions::createGame(QString name, QString pass, int& gid)
+ErrorCode ServiceActions::createGame(QString name, QString pass, int& gid)
 {
     Registry* registry = Registry::instance();
 
@@ -27,9 +27,9 @@ Error ServiceActions::createGame(QString name, QString pass, int& gid)
     return SUCCESS;
 }
 
-Error ServiceActions::joinGame(int uid, int gid, QList<void*>& sockets)
+ErrorCode ServiceActions::joinGame(int uid, int gid, QList<void*>& sockets)
 {
-    Error err = UNKNOWN_ERROR;
+    ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
     if (registry->isGameExist(gid)) err = GAME_DOES_NOT_EXIST;

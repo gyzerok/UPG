@@ -9,9 +9,9 @@ QParser::QParser(QString *request)
     m_xml = new QXmlStreamReader(m_request);
 }
 
-Error QParser::next(QString *tag, QString *value)
+ErrorCode QParser::next(QString *tag, QString *value)
 {
-    Error success = UNKNOWN_ERROR;
+    ErrorCode success = UNKNOWN_ERROR;
     if (!m_opened)
     {
         m_opened = true;
@@ -34,4 +34,24 @@ Error QParser::next(QString *tag, QString *value)
     }
 
     return success;
+}
+
+QString QParser::toString(User *user)
+{
+    return "_";
+}
+
+QString QParser::toString(Game *game)
+{
+    return "_";
+}
+
+QString QParser::toString(QMap<int, User *> users)
+{
+    return "_";
+}
+
+QString QParser::toString(QMap<int, Game *> games)
+{
+    return "_";
 }

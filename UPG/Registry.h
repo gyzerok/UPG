@@ -20,8 +20,8 @@ public:
     void                    addUser(int uid, User* user);
     void                    addGame(int gid, Game* game);
 
-    Error                   getUser(int uid, User* user);
-    Error                   getGame(int gid, Game* game);
+    ErrorCode                   getUser(int uid, User* user);
+    ErrorCode                   getGame(int gid, Game* game);
 
     QMap<int, Game*>        m_games;
     QMap<int, User*>        m_users;

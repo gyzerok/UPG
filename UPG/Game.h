@@ -21,6 +21,7 @@ public:
     QString         toString();
 
     int             getGid();
+
     Error           getState(GameState& state);
     Error           changeState(GameState state);
     Error           getName(QString& name);

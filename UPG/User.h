@@ -11,9 +11,9 @@ public:
 
     void*   getSocket();
     int     getUid();
-    Error   getCurrentGid(int& gid);
+    ErrorCode   getCurrentGid(int& gid);
 
-    Error   setCurrentGid(int gid);
+    ErrorCode   setCurrentGid(int gid);
 
     QString m_guessword;
 private:

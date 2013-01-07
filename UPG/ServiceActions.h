@@ -8,9 +8,9 @@ class ServiceActions
 {
 public:
     ServiceActions();
-    static Error login(int uid, void* socket);
-    static Error createGame(QString name, QString pass, int& gid);
-    static Error joinGame(int uid, int gid, QList<void*>& sockets);
+    static ErrorCode login(int uid, void* socket);
+    static ErrorCode createGame(QString name, QString pass, int& gid);
+    static ErrorCode joinGame(int uid, int gid, QList<void*>& sockets);
     //static Error exitRoom(int uid)
 };
 

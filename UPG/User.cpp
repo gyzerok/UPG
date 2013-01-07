@@ -18,14 +18,14 @@ int User::getUid()
     return m_uid;
 }
 
-Error User::getCurrentGid(int &gid)
+ErrorCode User::getCurrentGid(int &gid)
 {
     gid = m_gid;
 
     return SUCCESS;
 }
 
-Error User::setCurrentGid(int gid)
+ErrorCode User::setCurrentGid(int gid)
 {
     if (m_gid != NULL) return USER_ALREADY_IN_GAME;
 
