@@ -5,7 +5,7 @@ ServiceActions::ServiceActions()
 {
 }
 
-ErrorCode ServiceActions::login(int uid, void* socket)
+ErrorCode ServiceActions::login(int uid, void* socket, QList<void*>& sockets)
 {
     Registry* registry = Registry::instance();
     if (registry->isUserOnline(uid)) return USER_ALREADY_ONLINE;
@@ -13,16 +13,20 @@ ErrorCode ServiceActions::login(int uid, void* socket)
     User user(uid, socket);
     registry->addUser(uid, &user);
 
+    sockets.append(socket);
+
     return SUCCESS;
 }
 
-ErrorCode ServiceActions::createGame(QString name, QString pass, int& gid)
+ErrorCode ServiceActions::createGame(QString name, QString pass, void* socket, QList<void*>& sockets, int& gid)
 {
     Registry* registry = Registry::instance();
 
     Game game(name, pass);
     registry->addGame(game.getGid(), &game);
     gid = game.getGid();
+
+    sockets.append(socket);
 
     return SUCCESS;
 }

@@ -65,8 +65,8 @@ void QController::onRequestReceived(void* socket, QString request)
     {
         case Action::S_LOG_IN:
             parser->next(&tag, &value);
-            if (tag == "id")
-                err = ServiceActions::login(value.toInt(), socket);
+            //if (tag == "id")
+                //err = ServiceActions::login(value.toInt(), socket);
             break;
         case Action::S_CREATE_GAME:
             parser->next(&tag, &value);
@@ -75,8 +75,8 @@ void QController::onRequestReceived(void* socket, QString request)
                 QString name = value;
                 parser->next(&tag, &value);
                 int gid;
-                if (tag == "password")
-                    err = ServiceActions::createGame(name, value, gid);
+                //if (tag == "password")
+                    //err = ServiceActions::createGame(name, value, gid);
             }
             break;
         case Action::S_ENTER_GAME:

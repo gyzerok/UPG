@@ -41,9 +41,11 @@ void QServerSide::onReadyRead()
 
 void QServerSide::onResponseReady(QList<void*> sockets, QString response)
 {
-    //foreach QList
-    //(QTcpSocket*)socket->write(response->toUtf8().append(QChar::Null));
-    //(QTcpSocket*)socket->flush();
+    foreach (void* socket, sockets)
+    {
+        //(QTcpSocket*)socket->write(response->toUtf8().append(QChar::Null));
+        //(QTcpSocket*)socket->flush();
+    }
 }
 
 void QServerSide::onDisconnected()

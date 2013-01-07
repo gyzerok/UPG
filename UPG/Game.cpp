@@ -29,7 +29,6 @@ ErrorCode Game::getState(Game::GameState &state)
     return SUCCESS;
 }
 
-<<<<<<< HEAD
 ErrorCode Game::changeState(Game::GameState state)
 {
     /*
@@ -40,10 +39,7 @@ ErrorCode Game::changeState(Game::GameState state)
     return SUCCESS;
 }
 
-ErrorCode Game::getName(QString& name)
-=======
 QString Game::getName()
->>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 {
     return m_name;
 }
@@ -97,7 +93,6 @@ ErrorCode Game::getPlayers(QList<User*>& players)
     return SUCCESS;
 }
 
-<<<<<<< HEAD
 ErrorCode Game::getGuessers(QMap<void *, QString> &guessers)
 {
     guessers = m_guessers;
@@ -111,11 +106,11 @@ ErrorCode Game::addGuesser(void *guesser, QString word)
         return  TOO_MANY_GUESSERS;
     m_guessers.insert(guesser,word);
     return SUCCESS;
-=======
+}
+
 int Game::getCurUserCount()
 {
     return m_players.count() + m_observers.count();
->>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 }
 
 ErrorCode Game::addUser(User *user)

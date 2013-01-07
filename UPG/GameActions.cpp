@@ -70,6 +70,11 @@ ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void
     return err;
 }
 
+ErrorCode GameActions::guesstheWord(int gid, QString word, void *socket, QList<void *> &sockets)
+{
+    return SUCCESS;
+}
+
 ErrorCode GameActions::offeraWord(int gid, QString word, void *socket, QList<void *>& sockets)
 {
     ErrorCode err = UNKNOWN_ERROR;
