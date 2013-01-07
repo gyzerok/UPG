@@ -53,7 +53,7 @@ QString QParser::toString(QList<User *> users)
 
 QString QParser::toString(QList<Game *> games)
 {
-    QString result = "";
+    QString result = "<games>";
 
     foreach (Game* game, games)
     {
@@ -67,6 +67,7 @@ QString QParser::toString(QList<Game *> games)
         result.append(game->getMaxUserCount());
         result.append("\">");
     }
+    result.append("</games>");
 
     return result;
 }
