@@ -33,6 +33,12 @@ Error Game::addUser(User *user)
     return SUCCESS;
 }
 
+void* Game::chooseHost()
+{
+    int temp = randomInt(0,m_users.count()-1);
+    return m_users.value(temp)->getSocket();
+}
+
 int Game::randomInt(int low, int high)
 {
     return qrand() % ((high + 1) - low) + low;
