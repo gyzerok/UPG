@@ -22,6 +22,7 @@ public:
 
     int             getGid();
     Error           getState(GameState& state);
+    Error           changeState(GameState state);
     Error           getName(QString& name);
     Error           getHost(User* user);
     Error           getUsers(QList<User*>& users);
@@ -32,15 +33,13 @@ public:
 
     bool            checkPass(QString pass);
 
-    void*           chooseHost();
-    //void setHost(void);
 
-    GameState       m_state;
 
 
 private:
     int             randomInt(int low, int high);
     int             generateGid();
+    void*           chooseHost();
 
     int             m_gid;
     QString         m_name;
@@ -49,6 +48,7 @@ private:
     QList<User*>    m_observers;
 
     QList<User*>    m_players;
+    GameState       m_state;
     QString         m_word;
     QString         m_question;
     User*           m_host;
