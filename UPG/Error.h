@@ -18,11 +18,9 @@ enum ErrorCode
     NOT_ENOUGH_PLAYERS_TO_START_THE_GAME,
     YOU_ARE_NOT_A_HOST,
     YOU_CAN_NOT_OFFER_A_WORD_NOW,
-<<<<<<< HEAD
+    HEAD,
     TOO_MANY_GUESSERS,
-=======
     THERE_IS_NO_SUCH_USER_IN_THAT_GAME
->>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 };
 
 class Error

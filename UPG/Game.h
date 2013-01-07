@@ -48,7 +48,6 @@ public:
     ErrorCode       addUser(User* user);
     ErrorCode       setWord(QString word);
     ErrorCode       removeUser(User* user);
->>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 
     bool                    checkPass(QString pass);
 
