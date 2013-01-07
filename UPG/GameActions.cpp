@@ -1,48 +1,71 @@
-#include "GameActions.h"
 #include "Error.h"
 #include "Game.h"
+#include "Registry.h"
+#include "GameActions.h"
 
 GameActions::GameActions()
 {
 
 }
 
-Error GameActions::startGame(Game game, QList<void *> sockets)
+Error GameActions::startGame(int gid, QList<void *>& sockets)
 {
     Error err = UNKNOWN_ERROR;
 
-    foreach (User* user, game.m_users)
+    Registry* registry = Registry::instance();
+
+    Game* game = registry->getGame(gid);
+
+    QList<User*> users;
+    err = game->getUsers(users);
+
+    if (err == SUCCESS)
+        foreach (User* user, users)
+            sockets.append(user->getSocket());
+
+    if (err == SUCCESS)
     {
-        sockets.append(user->getSocket());
+        QList<User*> players;
+        err = game->getPlayers(players);
+
+        if (players.count() < 3)
+            return NOT_ENOUGH_PLAYERS_TO_START_THE_GAME;
+        else
+            return SUCCESS;
     }
 
-    if ( game.m_players.count() < 3 )
-        return NOT_ENOUGH_PLAYERS_TO_START_THE_GAME;
-    else
-        return SUCCESS;
+    return err;
 }
 
-Error GameActions::makeaWord(Game game, QString word, void* socket, QList<void *> sockets)
+Error GameActions::makeaWord(int gid, QString word, void* socket, QList<void *>& sockets)
 {
     Error err = UNKNOWN_ERROR;
 
-    if ( socket != game.m_host->getSocket() )
+    Registry* registry = Registry::instance();
+
+    Game* game = registry->getGame(gid);
+    User* host;
+    err = game->getHost(host);
+
+    if (socket != host->getSocket())
     {
         sockets.append(socket);
-        return YOU_ARE_NOT_A_HOST;
+        err = YOU_ARE_NOT_A_HOST;
     }
     else
     {
-        game.m_word = word;
-        foreach (User* user, game.m_users)
-        {
+        game->setWord(word);
+        QList<User*> users;
+        err = game->getUsers(users);
+
+        foreach (User* user, users)
             sockets.append(user->getSocket());
-        }
-        return SUCCESS;
     }
+
+    return err;
 }
 
-Error GameActions::offeraWord(Game game, QString word, void *socket, QList<void *> sockets)
+Error GameActions::offeraWord(Game game, QString word, void *socket, QList<void *>& sockets)
 {
     Error err = UNKNOWN_ERROR;
 

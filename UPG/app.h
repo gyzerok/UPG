@@ -12,7 +12,6 @@ public:
 
 private:
     QServerSide     m_server;
-    QParser         m_parser;
     QController     m_controller;
 };
 

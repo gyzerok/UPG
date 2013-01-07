@@ -1,5 +1,5 @@
-#include "QXmlStreamReader"
-#include "QXmlStreamWriter"
+#include <QtXml/QXmlStreamReader>
+#include <QtXml/QXmlStreamWriter>
 #include "QParser.h"
 
 QParser::QParser(QString *request)
@@ -9,7 +9,7 @@ QParser::QParser(QString *request)
     m_xml = new QXmlStreamReader(m_request);
 }
 
-Error QParser::Next(QString *tag, QString *value)
+Error QParser::next(QString *tag, QString *value)
 {
     Error success = UNKNOWN_ERROR;
     if (!m_opened)

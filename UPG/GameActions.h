@@ -10,11 +10,11 @@ class GameActions
 {
 public:
     GameActions();
-    static Error startGame(Game game, void* socket, QList<void*> sockets);
-    static Error makeaWord(Game game, QString word, void* socket, QList<void*> sockets);
-    static Error guesstheWord(Game game, QString word, void* socket, QList<void*> sockets);
-    static Error makeaQuestion(Game game, QString question, void* socket, QList<void*> sockets);
-    static Error offeraWord(Game game, QString word, void* socket, QList<void*> sockets);
+    static Error startGame(int gid, QList<void*>& sockets);
+    static Error makeaWord(int gid, QString word, void* socket, QList<void*>& sockets);
+    static Error guesstheWord(Game game, QString word, void* socket, QList<void*>& sockets);
+    static Error makeaQuestion(Game game, QString question, void* socket, QList<void*>& sockets);
+    static Error offeraWord(Game game, QString word, void* socket, QList<void*>& sockets);
 };
 
 #endif // GAMEACTIONS_H
