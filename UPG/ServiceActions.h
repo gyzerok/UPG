@@ -3,6 +3,8 @@
 
 #include <QString>
 #include "Error.h"
+#include "User.h"
+#include "Game.h"
 
 class ServiceActions
 {
@@ -11,7 +13,8 @@ public:
     static ErrorCode login(int uid, void* socket);
     static ErrorCode createGame(QString name, QString pass, int& gid);
     static ErrorCode joinGame(int uid, int gid, QList<void*>& sockets);
-    //static Error exitRoom(int uid)
+    static ErrorCode exitGame(int uid, void* socket, QList<void*>& sockets);
+    static ErrorCode getGameList(void* socket, QList<void*> sockets, QList<Game*>& gameList);
 };
 
 #endif // SERVICEACTIONS_H

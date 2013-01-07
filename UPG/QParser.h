@@ -1,5 +1,6 @@
 #ifndef QPARSER_H
 #define QPARSER_H
+
 #include <QtCore>
 #include <QString>
 #include "Error.h"
@@ -14,8 +15,8 @@ public:
 
     static QString toString(User* user);
     static QString toString(Game* game);
-    static QString toString(QMap<int, User*> users);
-    static QString toString(QMap<int, Game*> games);
+    static QString toString(QList<User*> users);
+    static QString toString(QList<Game*> games);
     static QString toString(ErrorCode errorCode);
     static QString constructResponse(QList<QString>& strings);
 

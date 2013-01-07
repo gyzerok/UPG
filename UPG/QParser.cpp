@@ -46,14 +46,29 @@ QString QParser::toString(Game *game)
     return "_";
 }
 
-QString QParser::toString(QMap<int, User *> users)
+QString QParser::toString(QList<User *> users)
 {
     return "_";
 }
 
-QString QParser::toString(QMap<int, Game *> games)
+QString QParser::toString(QList<Game *> games)
 {
-    return "_";
+    QString result = "";
+
+    foreach (Game* game, games)
+    {
+        // <game id="10203" name="OLOLO" curPlayers="10" maxPlayers="15">
+        result.append(game->getGid());
+        result.append("\" name=\"");
+        result.append(game->getName());
+        result.append("\" curPlayers=\"");
+        result.append(game->getCurUserCount());
+        result.append("\" maxPlayers=\"");
+        result.append(game->getMaxUserCount());
+        result.append("\">");
+    }
+
+    return result;
 }
 
 QString QParser::toString(ErrorCode errorCode)

@@ -15,6 +15,8 @@ public:
 
     ErrorCode   setCurrentGid(int gid);
 
+    ErrorCode   removeCurrentGid();
+
     QString m_guessword;
 private:
     int     m_uid;

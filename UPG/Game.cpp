@@ -29,11 +29,9 @@ ErrorCode Game::getState(Game::GameState &state)
     return SUCCESS;
 }
 
-ErrorCode Game::getName(QString& name)
+QString Game::getName()
 {
-    name = m_name;
-
-    return SUCCESS;
+    return m_name;
 }
 
 ErrorCode Game::getHost(User* user)
@@ -48,6 +46,18 @@ ErrorCode Game::setWord(QString word)
     m_word = word;
 
     return SUCCESS;
+}
+
+ErrorCode Game::removeUser(User *user)
+{
+    if (m_players.contains(user))
+        m_players.removeOne(user);
+    else if (m_observers.contains(user))
+        m_observers.removeOne(user);
+    else
+        return THERE_IS_NO_SUCH_USER_IN_THAT_GAME;
+
+    return user->removeCurrentGid();
 }
 
 bool Game::checkPass(QString pass)
@@ -71,6 +81,11 @@ ErrorCode Game::getPlayers(QList<User*>& players)
     players = m_players;
 
     return SUCCESS;
+}
+
+int Game::getCurUserCount()
+{
+    return m_players.count() + m_observers.count();
 }
 
 ErrorCode Game::addUser(User *user)
@@ -102,4 +117,9 @@ int Game::generateGid()
         return generateGid();
     else
         return temp;
+}
+
+int Game::getMaxUserCount()
+{
+    return m_maxUsers;
 }

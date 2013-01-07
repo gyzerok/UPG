@@ -50,3 +50,38 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QList<void*>& sockets)
 
     return err;
 }
+
+ErrorCode ServiceActions::exitGame(int uid, void *socket, QList<void*>& sockets)
+{
+    ErrorCode err = UNKNOWN_ERROR;
+    Registry* registry = Registry::instance();
+
+    User* user;
+    err = registry->getUser(uid, user);
+
+    int gid;
+    if (err == SUCCESS)
+        err = user->getCurrentGid(gid);
+
+    Game* game;
+    if (err == SUCCESS)
+        err = registry->getGame(gid, game);
+
+    if (err == SUCCESS)
+        err = game->removeUser(user);
+
+    sockets.append(socket);
+
+    return err;
+}
+
+ErrorCode ServiceActions::getGameList(void *socket, QList<void *> sockets, QList<Game *>& gameList)
+{
+    ErrorCode err = UNKNOWN_ERROR;
+    Registry* registry = Registry::instance();
+
+    err = registry->getGameList(gameList);
+    sockets.append(socket);
+
+    return SUCCESS;
+}

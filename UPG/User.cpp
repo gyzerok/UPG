@@ -5,6 +5,7 @@
 User::User(int uid, void* socket)
 {
     m_uid = uid;
+    m_gid = NULL;
     m_socket = socket;
 }
 
@@ -30,6 +31,15 @@ ErrorCode User::setCurrentGid(int gid)
     if (m_gid != NULL) return USER_ALREADY_IN_GAME;
 
     m_gid = gid;
+
+    return SUCCESS;
+}
+
+ErrorCode User::removeCurrentGid()
+{
+    if (m_gid == NULL) return USER_IS_NOT_IN_GAME;
+
+    m_gid = NULL;
 
     return SUCCESS;
 }

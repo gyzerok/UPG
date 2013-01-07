@@ -24,13 +24,16 @@ public:
 
     ErrorCode       getState(GameState& state);
     ErrorCode       changeState(GameState state);
-    ErrorCode       getName(QString& name);
     ErrorCode       getHost(User* user);
     ErrorCode       getUsers(QList<User*>& users);
     ErrorCode       getPlayers(QList<User*>& players);
+    QString         getName();
+    int             getCurUserCount();
+    int             getMaxUserCount();
 
     ErrorCode       addUser(User* user);
     ErrorCode       setWord(QString word);
+    ErrorCode       removeUser(User* user);
 
     bool            checkPass(QString pass);
 
