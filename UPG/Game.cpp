@@ -12,6 +12,11 @@ Game::Game(QString name, QString pass, int maxUsers)
     m_host = NULL;
 }
 
+QString Game::toString()
+{
+    return "_";
+}
+
 int Game::getGid()
 {
     return m_gid;

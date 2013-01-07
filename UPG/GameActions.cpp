@@ -14,10 +14,12 @@ Error GameActions::startGame(int gid, QList<void *>& sockets)
 
     Registry* registry = Registry::instance();
 
-    Game* game = registry->getGame(gid);
+    Game* game;
+    err = registry->getGame(gid, game);
 
     QList<User*> users;
-    err = game->getUsers(users);
+    if (err == SUCCESS)
+        err = game->getUsers(users);
 
     if (err == SUCCESS)
         foreach (User* user, users)
@@ -43,9 +45,12 @@ Error GameActions::makeaWord(int gid, QString word, void* socket, QList<void *>&
 
     Registry* registry = Registry::instance();
 
-    Game* game = registry->getGame(gid);
+    Game* game;
+    err = registry->getGame(gid, game);
+
     User* host;
-    err = game->getHost(host);
+    if (err == SUCCESS)
+        err = game->getHost(host);
 
     if (socket != host->getSocket())
     {

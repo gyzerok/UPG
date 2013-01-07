@@ -7,32 +7,25 @@ QController::QController()
 {
 }
 
-void QController::onRequestReady(void* socket, QStringList parsedRequest)
+void QController::onRequestReceived(void* socket, QString request)
 {
     Error err = UNKNOWN_ERROR;
-    QStringList response;
     QList<void*> sockets;
-
-    QString xmlRequest;
-    QXmlInputSource xmlInputSource;
-    xmlInputSource.setData(xmlRequest);
-    QXmlSimpleReader xmlParser;
-    xmlParser.parse(xmlInputSource);
-    //int requestType =
 
     sockets.clear();
     sockets.append(socket);
 
-    switch (parsedRequest.value(1).toInt())
+    int type;
+    switch (type)
     {   
         case Action::S_LOG_IN:
-            err = ServiceActions::login(parsedRequest.value(1).toInt(), socket);
-            //response = new QString(err);
+            //err = ServiceActions::login(parsedRequest.value(1).toInt(), socket);
             break;
         case Action::S_CREATE_GAME:
             break;
 
     }
 
-    emit actionComplete(sockets, response);
+    QString response;
+    emit responseReady(sockets, response);
 }

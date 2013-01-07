@@ -13,15 +13,16 @@ public:
             m_instance = new Registry();
         return m_instance;
     }
-    bool isUserOnline(int uid);
-    bool isGameExist(int gid);
-    void addUser(int uid, User* user);
-    void addGame(int gid, Game* game);
-    void addUserToGame(int uid, Game* game);
-    User* getUser(int uid);
-    Game* getGame(int gid);
 
-    QMap<int, Game*>        m_registry;
+    bool                    isUserOnline(int uid);
+    bool                    isGameExist(int gid);
+
+    void                    addUser(int uid, User* user);
+    void                    addGame(int gid, Game* game);
+
+    Error                   getUser(int uid, User* user);
+    Error                   getGame(int gid, Game* game);
+
     QMap<int, Game*>        m_games;
     QMap<int, User*>        m_users;
 

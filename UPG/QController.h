@@ -12,10 +12,10 @@ public:
     QController();
 
 public slots:
-    void onRequestReady(void* socket, QStringList parsedRequest);
+    void onRequestReceived(void* socket, QString request);
 
 signals:
-    void actionComplete(QList<void*> sockets, QStringList response);
+    void responseReady(QList<void*> sockets, QString response);
 };
 
 #endif // QCONTROLLER_H

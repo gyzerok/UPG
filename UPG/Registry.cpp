@@ -20,19 +20,18 @@ void Registry::addGame(int gid, Game *game)
     m_games.insert(gid, game);
 }
 
-void Registry::addUserToGame(int uid, Game *game)
+Error Registry::getUser(int uid, User* user)
 {
-    m_registry.insert(uid, game);
+    user = m_users.value(uid);
+
+    return SUCCESS;
 }
 
-User *Registry::getUser(int uid)
+Error Registry::getGame(int gid, Game* game)
 {
-    return m_users.take(uid);
-}
+    game = m_games.value(gid);
 
-Game *Registry::getGame(int gid)
-{
-    return m_games.take(gid);
+    return SUCCESS;
 }
 
 Registry::Registry()

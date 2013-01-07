@@ -32,11 +32,21 @@ Error ServiceActions::joinGame(int uid, int gid, QList<void*>& sockets)
     Error err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
-    if (registry->isGameExist(gid)) return GAME_DOES_NOT_EXIST;
-    Game* game = registry->getGame(gid);
-    err = game->addUser(registry->getUser(uid));
+    if (registry->isGameExist(gid)) err = GAME_DOES_NOT_EXIST;
+
+    Game* game;
     if (err == SUCCESS)
-            registry->addUserToGame(uid, game);
+        err = registry->getGame(gid, game);
+
+    User* user;
+    if (err == SUCCESS)
+        err = registry->getUser(uid, user);
+
+    if (err == SUCCESS)
+        err = game->addUser(user);
+
+    if (err == SUCCESS)
+        err = user->setCurrentGid(game->getGid());
 
     return err;
 }

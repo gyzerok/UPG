@@ -18,6 +18,7 @@ public:
     };
 
     Game(QString name, QString pass, int maxUsers = 10);
+    QString         toString();
 
     int             getGid();
     Error           getState(GameState& state);
@@ -38,8 +39,8 @@ public:
 
 
 private:
-    int randomInt(int low, int high);
-    int generateGid();
+    int             randomInt(int low, int high);
+    int             generateGid();
 
     int             m_gid;
     QString         m_name;
