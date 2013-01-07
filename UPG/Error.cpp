@@ -8,7 +8,7 @@ Error::Error()
     m_errors[USER_ALREADY_IN_GAME] = "Вы уже находитесь в игре";
 }
 
-QString Error::getString(ErrorCode error)
+QString Error::getString(ErrorCode errorCode)
 {
     return m_errors.value(error);
 }
