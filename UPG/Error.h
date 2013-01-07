@@ -21,7 +21,7 @@ class Error
 {
 public:
     Error();
-    QString getString(ErrorCode error);
+    QString getString(ErrorCode errorCode);
 
 private:
     QMap<ErrorCode,QString> m_errors;

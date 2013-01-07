@@ -55,3 +55,9 @@ QString QParser::toString(QMap<int, Game *> games)
 {
     return "_";
 }
+
+QString QParser::toString(ErrorCode errorCode)
+{
+    Error error;
+    return error.getString(errorCode);
+}

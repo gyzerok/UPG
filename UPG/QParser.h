@@ -16,6 +16,7 @@ public:
     static QString toString(Game* game);
     static QString toString(QMap<int, User*> users);
     static QString toString(QMap<int, Game*> games);
+    static QString toString(ErrorCode errorCode);
 
 private:
     QString m_request;
