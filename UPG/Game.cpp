@@ -4,6 +4,7 @@
 
 Game::Game(QString name, QString pass, int maxUsers)
 {
+    m_state = PREGAME;
     m_name = name;
     m_pass = pass;
     m_maxUsers = maxUsers;

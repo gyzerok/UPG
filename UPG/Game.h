@@ -9,14 +9,26 @@
 class Game
 {
 public:
-    Game(QString name, QString pass, int maxUsers = 10);
-    int getGid();
-    QString getName();
-    bool checkPass(QString pass);
-    Error addUser(User* user);
 
-    void* chooseHost();
+    enum GameState
+    {
+        PREGAME,
+        GAME_STARTED,
+        WORD_OFFERED,
+        CONTACT
+    }
+
+    Game(QString name, QString pass, int maxUsers = 10);
+    int         getGid();
+    QString     getName();
+    bool        checkPass(QString pass);
+    Error       addUser(User* user);
+
+    void*       chooseHost();
     //void setHost(void);
+
+    GameState m_state;
+
 
 private:
     int randomInt(int low, int high);

@@ -2,6 +2,8 @@
 #define USER_H
 
 #include "Error.h"
+#include <QString>
+
 class User
 {
 public:
@@ -9,6 +11,7 @@ public:
     void* getSocket();
     int getUid();
 
+    QString m_guessword;
 private:
     int     m_uid;
     void*   m_socket;

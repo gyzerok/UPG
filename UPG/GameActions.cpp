@@ -7,14 +7,8 @@ GameActions::GameActions()
 
 }
 
-Error GameActions::startGame(Game game, void *socket, QList<void *> sockets)
+Error GameActions::startGame(Game game, QList<void *> sockets)
 {
-    /*
-        TODO:
-            Согласовать владельцев комнаты. (Кто будет начинать игру?)
-            добавить owner при create room и в проверку m_owner == socket
-    */
-
     Error err = UNKNOWN_ERROR;
 
     foreach (User* user, game.m_users)
@@ -47,3 +41,13 @@ Error GameActions::makeaWord(Game game, QString word, void* socket, QList<void *
         return SUCCESS;
     }
 }
+
+Error GameActions::offeraWord(Game game, QString word, void *socket, QList<void *> sockets)
+{
+    Error err = UNKNOWN_ERROR;
+
+    if ( game.m_state != game.GAME_STARTED )
+            return YOU_CAN_NOT_OFFER_A_WORD_NOW;
+
+}
+
