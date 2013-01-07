@@ -29,6 +29,16 @@ ErrorCode Game::getState(Game::GameState &state)
     return SUCCESS;
 }
 
+ErrorCode Game::changeState(Game::GameState state)
+{
+    /*
+      TODO:
+      Сделать свитч-кейс
+    */
+    m_state = state;
+    return SUCCESS;
+}
+
 ErrorCode Game::getName(QString& name)
 {
     name = m_name;
@@ -70,6 +80,21 @@ ErrorCode Game::getPlayers(QList<User*>& players)
 {
     players = m_players;
 
+    return SUCCESS;
+}
+
+ErrorCode Game::getGuessers(QMap<void *, QString> &guessers)
+{
+    guessers = m_guessers;
+
+    return SUCCESS;
+}
+
+ErrorCode Game::addGuesser(void *guesser, QString word)
+{
+    if (m_guessers.count()>2)
+        return  TOO_MANY_GUESSERS;
+    m_guessers.insert(guesser,word);
     return SUCCESS;
 }
 

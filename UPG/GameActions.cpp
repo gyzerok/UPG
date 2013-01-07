@@ -85,6 +85,17 @@ ErrorCode GameActions::offeraWord(int gid, QString word, void *socket, QList<voi
     if (err == SUCCESS && gameState != Game::GAME_STARTED)
         return YOU_CAN_NOT_OFFER_A_WORD_NOW;
 
+    err = game->addGuesser(socket,word);
+    if (err == SUCCESS)
+        err = game->changeState(Game::WORD_OFFERED);
+    if (err == SUCCESS)
+    {
+        QList<User*> temp;
+        err = game->getUsers(temp);
+        if (err == SUCCESS)
+            foreach (User* usr, temp)
+                sockets.append(usr->getSocket());
+    }
     return err;
 }
 

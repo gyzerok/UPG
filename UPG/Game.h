@@ -18,38 +18,41 @@ public:
     };
 
     Game(QString name, QString pass, int maxUsers = 10);
-    QString         toString();
+    QString                 toString();
 
-    int             getGid();
+    int                     getGid();
 
-    ErrorCode       getState(GameState& state);
-    ErrorCode       changeState(GameState state);
-    ErrorCode       getName(QString& name);
-    ErrorCode       getHost(User* user);
-    ErrorCode       getUsers(QList<User*>& users);
-    ErrorCode       getPlayers(QList<User*>& players);
+    ErrorCode               getState(GameState& state);
+    ErrorCode               getName(QString& name);
+    ErrorCode               getHost(User* user);
+    ErrorCode               getUsers(QList<User*>& users);
+    ErrorCode               getPlayers(QList<User*>& players);
+    ErrorCode               getGuessers(QMap<void*, QString>& guessers);
 
-    ErrorCode       addUser(User* user);
-    ErrorCode       setWord(QString word);
+    ErrorCode               addGuesser(void* guesser, QString word);
+    ErrorCode               addUser(User* user);
+    ErrorCode               setWord(QString word);
+    ErrorCode               changeState(GameState state);
 
-    bool            checkPass(QString pass);
+    bool                    checkPass(QString pass);
 
 private:
-    int             randomInt(int low, int high);
-    int             generateGid();
-    void*           chooseHost();
+    int                     randomInt(int low, int high);
+    int                     generateGid();
+    void*                   chooseHost();
 
-    int             m_gid;
-    QString         m_name;
-    QString         m_pass;
-    int             m_maxUsers;
-    QList<User*>    m_observers;
+    int                     m_gid;
+    QString                 m_name;
+    QString                 m_pass;
+    int                     m_maxUsers;
+    QList<User*>            m_observers;
 
-    QList<User*>    m_players;
-    GameState       m_state;
-    QString         m_word;
-    QString         m_question;
-    User*           m_host;
+    QMap<void*, QString>    m_guessers;
+    QList<User*>            m_players;
+    GameState               m_state;
+    QString                 m_word;
+    QString                 m_question;
+    User*                   m_host;
 };
 
 #endif // GAME_H

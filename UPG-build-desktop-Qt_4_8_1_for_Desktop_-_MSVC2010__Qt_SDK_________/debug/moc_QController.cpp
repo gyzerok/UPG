@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'QController.h'
 **
-** Created: Mon 7. Jan 12:21:41 2013
+** Created: Mon 7. Jan 19:37:56 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -34,16 +34,15 @@ static const uint qt_meta_data_QController[] = {
       30,   13,   12,   12, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      92,   71,   12,   12, 0x0a,
+      81,   66,   12,   12, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_QController[] = {
     "QController\0\0sockets,response\0"
-    "actionComplete(QList<void*>,QStringList)\0"
-    "socket,parsedRequest\0"
-    "onRequestReady(void*,QStringList)\0"
+    "responseReady(QList<void*>,QString)\0"
+    "socket,request\0onRequestReceived(void*,QString)\0"
 };
 
 void QController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -52,8 +51,8 @@ void QController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_ASSERT(staticMetaObject.cast(_o));
         QController *_t = static_cast<QController *>(_o);
         switch (_id) {
-        case 0: _t->actionComplete((*reinterpret_cast< QList<void*>(*)>(_a[1])),(*reinterpret_cast< QStringList(*)>(_a[2]))); break;
-        case 1: _t->onRequestReady((*reinterpret_cast< void*(*)>(_a[1])),(*reinterpret_cast< QStringList(*)>(_a[2]))); break;
+        case 0: _t->responseReady((*reinterpret_cast< QList<void*>(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 1: _t->onRequestReceived((*reinterpret_cast< void*(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -99,7 +98,7 @@ int QController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void QController::actionComplete(QList<void*> _t1, QStringList _t2)
+void QController::responseReady(QList<void*> _t1, QString _t2)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
