@@ -59,5 +59,16 @@ QString QParser::toString(QMap<int, Game *> games)
 QString QParser::toString(ErrorCode errorCode)
 {
     Error error;
-    return error.getString(errorCode);
+    QString result = "<error>" + error.getString(errorCode) + "</error>";
+    return result;
+}
+
+QString QParser::constructResponse(QList<QString> &strings)
+{
+    QString result = "<response>";
+    foreach(QString str, strings)
+        result += str;
+    result += "</response>";
+
+    return result;
 }
