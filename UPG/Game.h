@@ -22,17 +22,33 @@ public:
 
     int                     getGid();
 
+
     ErrorCode               getState(GameState& state);
-    ErrorCode               getName(QString& name);
     ErrorCode               getHost(User* user);
     ErrorCode               getUsers(QList<User*>& users);
     ErrorCode               getPlayers(QList<User*>& players);
     ErrorCode               getGuessers(QMap<void*, QString>& guessers);
+    int                     getCurUserCount();
+    int                     getMaxUserCount();
+    QString                 getName();
 
     ErrorCode               addGuesser(void* guesser, QString word);
     ErrorCode               addUser(User* user);
     ErrorCode               setWord(QString word);
     ErrorCode               changeState(GameState state);
+
+    ErrorCode       getState(GameState& state);
+    ErrorCode       changeState(GameState state);
+    ErrorCode       getHost(User* user);
+    ErrorCode       getUsers(QList<User*>& users);
+    ErrorCode       getPlayers(QList<User*>& players);
+
+
+
+    ErrorCode       addUser(User* user);
+    ErrorCode       setWord(QString word);
+    ErrorCode       removeUser(User* user);
+>>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 
     bool                    checkPass(QString pass);
 

@@ -20,8 +20,10 @@ public:
     void                    addUser(int uid, User* user);
     void                    addGame(int gid, Game* game);
 
-    ErrorCode                   getUser(int uid, User* user);
-    ErrorCode                   getGame(int gid, Game* game);
+    ErrorCode               getUser(int uid, User* user);
+    ErrorCode               getUserList(QList<User*>& userList);
+    ErrorCode               getGame(int gid, Game* game);
+    ErrorCode               getGameList(QList<Game*>& gameList);
 
     QMap<int, Game*>        m_games;
     QMap<int, User*>        m_users;

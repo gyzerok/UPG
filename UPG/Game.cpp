@@ -29,6 +29,7 @@ ErrorCode Game::getState(Game::GameState &state)
     return SUCCESS;
 }
 
+<<<<<<< HEAD
 ErrorCode Game::changeState(Game::GameState state)
 {
     /*
@@ -40,10 +41,11 @@ ErrorCode Game::changeState(Game::GameState state)
 }
 
 ErrorCode Game::getName(QString& name)
+=======
+QString Game::getName()
+>>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 {
-    name = m_name;
-
-    return SUCCESS;
+    return m_name;
 }
 
 ErrorCode Game::getHost(User* user)
@@ -58,6 +60,18 @@ ErrorCode Game::setWord(QString word)
     m_word = word;
 
     return SUCCESS;
+}
+
+ErrorCode Game::removeUser(User *user)
+{
+    if (m_players.contains(user))
+        m_players.removeOne(user);
+    else if (m_observers.contains(user))
+        m_observers.removeOne(user);
+    else
+        return THERE_IS_NO_SUCH_USER_IN_THAT_GAME;
+
+    return user->removeCurrentGid();
 }
 
 bool Game::checkPass(QString pass)
@@ -83,6 +97,7 @@ ErrorCode Game::getPlayers(QList<User*>& players)
     return SUCCESS;
 }
 
+<<<<<<< HEAD
 ErrorCode Game::getGuessers(QMap<void *, QString> &guessers)
 {
     guessers = m_guessers;
@@ -96,6 +111,11 @@ ErrorCode Game::addGuesser(void *guesser, QString word)
         return  TOO_MANY_GUESSERS;
     m_guessers.insert(guesser,word);
     return SUCCESS;
+=======
+int Game::getCurUserCount()
+{
+    return m_players.count() + m_observers.count();
+>>>>>>> cf6ac49961dddb84414149dbf8ae2cd2cb803e94
 }
 
 ErrorCode Game::addUser(User *user)
@@ -127,4 +147,9 @@ int Game::generateGid()
         return generateGid();
     else
         return temp;
+}
+
+int Game::getMaxUserCount()
+{
+    return m_maxUsers;
 }
