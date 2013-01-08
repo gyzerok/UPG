@@ -52,9 +52,11 @@ QString QParser::constructResponse(ErrorCode errorCode, int type, QString msg)
     result.append(error.getString(errorCode));
     result.append("</error>");
     result.append("<type>");
-    result.append((QString)type);
+    result.append(QString("%1").arg(type));
     result.append("</type>");
+    result.append("<body>");
     result.append(msg);
+    result.append("</body>");
     result.append("</response>");
 
     return result;

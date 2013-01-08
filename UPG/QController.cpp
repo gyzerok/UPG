@@ -94,7 +94,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
                 if (tag == "password")
                 {
                     err = ServiceActions::createGame(uid, name, value, socket, sockets, gid);
-                    msg.append(gid);
+                    msg.append(QString("%1").arg(gid));
                 }
             }
             break;

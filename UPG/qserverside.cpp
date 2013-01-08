@@ -37,9 +37,10 @@ void QServerSide::onReadyRead()
     }
     else
     {
-        //emit requestReceived(socket, *request);
-        QString temp = "ololo";
-        socket->write(temp.toAscii().append(QChar::Null));
+        qDebug() << "Socket: " << socket->socketDescriptor();
+        emit requestReceived(socket, *request);
+        //QString temp = "ololo";
+        //socket->write(temp.toAscii().append(QChar::Null));
     }
 }
 
@@ -49,6 +50,7 @@ void QServerSide::onResponseReady(QList<QObject*> sockets, QString response)
     foreach (QObject* socket, sockets)
     {
         QTcpSocket* target = qobject_cast<QTcpSocket*>(socket);
+        qDebug() << "Socket: " << target->socketDescriptor();
         target->write(response.toUtf8().append(QChar::Null));
         target->flush();
     }
