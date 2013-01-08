@@ -12,10 +12,11 @@ public:
     QController();
 
 public slots:
-    void onRequestReceived(void* socket, QString request);
+    void onRequestReceived(QObject* socket, QString request);
+    void onClientDisconnected(QObject* socket);
 
 signals:
-    void responseReady(QList<void*> sockets, QString response);
+    void responseReady(QList<QObject*> sockets, QString response);
 };
 
 #endif // QCONTROLLER_H

@@ -45,13 +45,12 @@ QController::QController()
         </request>
 */
 
-void QController::onRequestReceived(void* socket, QString request)
+void QController::onRequestReceived(QObject* socket, QString request)
 {
     ErrorCode err = UNKNOWN_ERROR;
-    QList<void*> sockets;
+    QList<QObject*> sockets;
 
     sockets.clear();
-    sockets.append(socket);
 
     QParser* parser = new QParser(&request);
     QString tag, value;
@@ -85,8 +84,8 @@ void QController::onRequestReceived(void* socket, QString request)
             {
                 int uid = value.toInt();
                 parser->next(&tag, &value);
-                if (tag == "gid")
-                    err = ServiceActions::joinGame(uid, value.toInt(), sockets);
+                //if (tag == "gid")
+                    //err = ServiceActions::joinGame(uid, value.toInt(), sockets);
             }
             break;
         case Action::G_START_GAME:
@@ -131,4 +130,9 @@ void QController::onRequestReceived(void* socket, QString request)
     QString response;
     response = parser->constructResponse(err);
     emit responseReady(sockets, response);
+}
+
+void QController::onClientDisconnected(QObject *socket)
+{
+
 }

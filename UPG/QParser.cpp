@@ -63,7 +63,7 @@ QString QParser::constructResponse(ErrorCode error)
 
     result += "</response>";
 
-    return "_";
+    return result;
 }
 
 QString QParser::toString(User *user)

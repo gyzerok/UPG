@@ -1,20 +1,21 @@
 #ifndef GAMEACTIONS_H
 #define GAMEACTIONS_H
 
-#include "Error.h"
-#include "Game.h"
+#include <QObject>
 #include <QString>
 #include <QList>
+#include "Error.h"
+#include "Game.h"
 
 class GameActions
 {
 public:
     GameActions();
-    static ErrorCode startGame(int gid, QList<void*>& sockets);
-    static ErrorCode makeaWord(int gid, QString word, void* socket, QList<void*>& sockets);
-    static ErrorCode guesstheWord(int gid, QString word, void* socket, QList<void*>& sockets);
-    static ErrorCode makeaQuestion(int gid, QString question, void* socket, QList<void*>& sockets);
-    static ErrorCode offeraWord(int gid, QString word, void* socket, QList<void*>& sockets);
+    static ErrorCode startGame(int gid, QList<QObject*>& sockets);
+    static ErrorCode makeaWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
+    static ErrorCode guesstheWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
+    static ErrorCode makeaQuestion(int gid, QString question, QObject* socket, QList<QObject*>& sockets);
+    static ErrorCode offeraWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
 };
 
 #endif // GAMEACTIONS_H

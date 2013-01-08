@@ -14,15 +14,13 @@ public:
     void incomingConnection(int handle);
 
 signals:
-    void requestReceived(void* socket, QString request);
+    void requestReceived(QObject* socket, QString request);
+    void clientDisconnected(QObject* socket);
 
 public slots:
     void onReadyRead();
-    void onResponseReady(QList<void*> socket, QString response);
+    void onResponseReady(QList<QObject*> socket, QString response);
     void onDisconnected();
-
-private:
-    QMap<int, QTcpSocket*>      m_clients;
 };
 
 #endif // SERVERSIDE_H
