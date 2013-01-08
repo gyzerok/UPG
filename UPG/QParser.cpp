@@ -84,15 +84,54 @@ QString QParser::toString(Game *game)
     // <name>имя</name>
     // <max_players>1</max_players>
     QString result;
-    result.append("<gid>");
-    result.append(game->getGid());
-    result.append("</gid>");
-    result.append("<name>");
-    result.append(game->getName());
-    result.append("</name>");
-    result.append("<max_players>");
-    result.append(game->getMaxUserCount());
-    result.append("</max_players>");
+    Game::GameState state; game->getState(state);
+    result.append(QString("<state>%1<state>").arg(state));
+
+    result.append("<players>");
+    QList<User*> players; game->getPlayers(players);
+    foreach (User* player, players)
+    {
+        result.append("<uid>%1</uid>").arg(player->getUid());
+    }
+    result.append("</players>");
+
+    result.append("<observers>");
+    QList<User*> observers; game->getObservers(observers);
+    foreach (User* observer, observers)
+    {
+        result.append(QString("<uid>%1</uid>").arg(observer->getUid()));
+    }
+    result.append("</observers>");
+
+    if (state >= Game::GAME_STARTED)
+    {
+        User* host;
+        game->getHost(&host);
+        result.append(QString("<host>%1</host>").arg(host->getUid()));
+    }
+
+    if (state >= Game::WORD_OFFERED)
+    {
+        result.append(QString("<sourceWord>%1</sourceWord>").arg(game->getSourceWord()));
+        result.append(QString("<openedChars>%1</openedChars>").arg(game->getOpenedChars()));
+    }
+
+    if (state >= Game::QUESTION_ASKED)
+    {
+        result.append(QString("<question>%1</question>").arg(game->getQuestion()));
+        // send asker uid
+    }
+
+    if (state >= Game::CONTACT)
+    {
+        // send other uid
+    }
+
+    if (state >= Game::CONTACT_SUCCEED)
+    {
+        // send all 3 words
+    }
+
     return result;
 }
 

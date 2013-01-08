@@ -53,6 +53,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
     ErrorCode err = INCORRECT_XML;
     QList<QObject*> sockets;
     QString msg; msg.clear();
+    Game* game;
 
     sockets.clear();
 
@@ -102,16 +103,20 @@ void QController::onRequestReceived(QObject* socket, QString request)
         case Action::S_JOIN_GAME:
             parser->next(&tag, &value);
             if (tag == "gid")
-                err = ServiceActions::joinGame(uid, value.toInt(), socket, sockets);
+                err = ServiceActions::joinGame(uid, value.toInt(), socket, sockets, &game);
+            if (err == SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
         case Action::S_EXIT_GAME:
-            err = ServiceActions::exitGame(uid, socket, sockets);
+            err = ServiceActions::exitGame(uid, socket, sockets, &game);
+            if (err == SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
         case Action::S_GET_GAME_LIST:
             err = ServiceActions::getGameList(uid, socket, sockets, glist);
-            msg = QParser::toString(glist);
+            msg.append(QParser::toString(glist));
             break;
         /*
                     GAME SIDE ACTIONS
