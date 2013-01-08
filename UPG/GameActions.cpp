@@ -5,7 +5,6 @@
 
 GameActions::GameActions()
 {
-
 }
 
 ErrorCode GameActions::startGame(int gid, QList<void *>& sockets)
