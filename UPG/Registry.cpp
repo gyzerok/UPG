@@ -25,9 +25,9 @@ void Registry::removeUser(int uid)
     m_users.remove(uid);
 }
 
-ErrorCode Registry::getUser(int uid, User* user)
+ErrorCode Registry::getUser(int uid, User** user)
 {
-    user = m_users.value(uid);
+    *user = m_users.value(uid);
 
     return SUCCESS;
 }
@@ -41,9 +41,9 @@ ErrorCode Registry::getUserList(QList<User*> &userList)
     return SUCCESS;
 }
 
-ErrorCode Registry::getGame(int gid, Game* game)
+ErrorCode Registry::getGame(int gid, Game** game)
 {
-    game = m_games.value(gid);
+    *game = m_games.value(gid);
 
     return SUCCESS;
 }

@@ -22,9 +22,9 @@ public:
     void                    removeUser(int uid);
     void                    removeGame(int gid);
 
-    ErrorCode               getUser(int uid, User* user);
+    ErrorCode               getUser(int uid, User** user);
     ErrorCode               getUserList(QList<User*>& userList);
-    ErrorCode               getGame(int gid, Game* game);
+    ErrorCode               getGame(int gid, Game** game);
     ErrorCode               getGameList(QList<Game*>& gameList);
 
     QMap<int, Game*>        m_games;

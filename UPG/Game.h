@@ -24,7 +24,7 @@ public:
 
 
     ErrorCode               getState(GameState& state);
-    ErrorCode               getHost(User* user);
+    ErrorCode               getHost(User** user);
     ErrorCode               getUsers(QList<User*>& users);
     ErrorCode               getPlayers(QList<User*>& players);
     ErrorCode               getGuessers(QMap<void*, QString>& guessers);

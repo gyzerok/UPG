@@ -14,7 +14,7 @@ ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets)
     Registry* registry = Registry::instance();
 
     Game* game;
-    err = registry->getGame(gid, game);
+    err = registry->getGame(gid, &game);
 
     QList<User*> users;
     if (err == SUCCESS)
@@ -45,11 +45,11 @@ ErrorCode GameActions::makeaWord(int gid, QString word, QObject* socket, QList<Q
     Registry* registry = Registry::instance();
 
     Game* game;
-    err = registry->getGame(gid, game);
+    err = registry->getGame(gid, &game);
 
     User* host;
     if (err == SUCCESS)
-        err = game->getHost(host);
+        err = game->getHost(&host);
 
     if (socket != host->getSocket())
     {
@@ -82,7 +82,7 @@ ErrorCode GameActions::offeraWord(int gid, QString word, QObject *socket, QList<
     Registry* registry = Registry::instance();
 
     Game* game;
-    err = registry->getGame(gid, game);
+    err = registry->getGame(gid, &game);
 
     Game::GameState gameState;
     if (err == SUCCESS)
