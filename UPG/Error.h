@@ -6,7 +6,7 @@
 
 enum ErrorCode
 {
-    SUCCESS,
+    SUCCESS = 0,
     UNKNOWN_ERROR,
     USER_ALREADY_ONLINE,
     USER_ALREADY_IN_GAME,
