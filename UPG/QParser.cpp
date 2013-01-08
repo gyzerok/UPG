@@ -20,7 +20,6 @@ ErrorCode QParser::next(QString *tag, QString *value)
     }
 
     m_xml->readNext();
-    QString olo = m_xml->qualifiedName().toString();
     QString _tag = m_xml->name().toString();
     if (!(m_xml->tokenType()==QXmlStreamReader::EndElement))
     {
@@ -36,19 +35,81 @@ ErrorCode QParser::next(QString *tag, QString *value)
     return success;
 }
 
+QString QParser::constructResponse(ErrorCode error)
+{
+    /*
+      <response>
+        <error>1</error>
+        остальное опционально в зависимости от запроса
+      </response>
+    */
+    m_xml = new QXmlStreamReader(m_request);
+    QString result, tag, value;
+
+    result += "<response>";
+    result += QParser::toString(error);
+
+    this->next(&tag, &value);
+
+    if (tag == "type" && error == SUCCESS)
+    {
+        switch (value.toInt())
+        {
+            // заглушка
+            case Action::G_ASK_QUESTION:
+                break;
+        }
+    }
+
+    result += "</response>";
+
+    return "_";
+}
+
 QString QParser::toString(User *user)
 {
-    return "_";
+    int gid;
+    user->getCurrentGid(gid);
+    // <uid>123</uid>
+    // <gid>321<gid>
+    QString result;
+    result.append("<uid>");
+    result.append(user->getUid());
+    result.append("</uid>");
+    result.append("<gid>");
+    result.append(gid);
+    result.append("</gid>");
+    return result;
 }
 
 QString QParser::toString(Game *game)
 {
-    return "_";
+    // <gid>123</gid>
+    // <name>имя</name>
+    // <max_players>1</max_players>
+    QString result;
+    result.append("<gid>");
+    result.append(game->getGid());
+    result.append("</gid>");
+    result.append("<name>");
+    result.append(game->getName());
+    result.append("</name>");
+    result.append("<max_players>");
+    result.append(game->getMaxUserCount());
+    result.append("</max_players>");
+    return result;
 }
 
 QString QParser::toString(QList<User *> users)
 {
-    return "_";
+    // <uid>123</uid>
+    // <gid>321<gid>
+    // n-раз
+    QString result;
+    foreach (User* user, users)
+        result.append(QParser::toString(user));
+
+    return result;
 }
 
 QString QParser::toString(QList<Game *> games)
@@ -76,15 +137,5 @@ QString QParser::toString(ErrorCode errorCode)
 {
     Error error;
     QString result = "<error>" + error.getString(errorCode) + "</error>";
-    return result;
-}
-
-QString QParser::constructResponse(QList<QString> &strings)
-{
-    QString result = "<response>";
-    foreach(QString str, strings)
-        result += str;
-    result += "</response>";
-
     return result;
 }

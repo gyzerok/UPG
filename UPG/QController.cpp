@@ -124,8 +124,11 @@ void QController::onRequestReceived(void* socket, QString request)
                     err = GameActions::offeraWord(gid, value, socket, sockets);
             }
             break;
+        default:
+            err = UNKNOWN_REQUEST_TYPE;
     }
 
     QString response;
+    response = parser->constructResponse(err);
     emit responseReady(sockets, response);
 }
