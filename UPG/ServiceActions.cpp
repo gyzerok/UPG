@@ -84,11 +84,10 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObj
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
-    if (registry->isGameExist(gid)) err = GAME_DOES_NOT_EXIST;
+    if (!registry->isGameExist(gid)) return GAME_DOES_NOT_EXIST;
 
     Game* game;
-    if (err == SUCCESS)
-        err = registry->getGame(gid, &game);
+    err = registry->getGame(gid, &game);
 
     User* user;
     if (err == SUCCESS)
@@ -139,7 +138,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
     return err;
 }
 
-ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject*> sockets, QList<Game *>& gameList)
+ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject*>& sockets, QList<Game *>& gameList)
 {
     sockets.append(socket);
 
