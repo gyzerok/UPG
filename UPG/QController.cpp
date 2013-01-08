@@ -49,6 +49,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
 {
     ErrorCode err = UNKNOWN_ERROR;
     QList<QObject*> sockets;
+    QString msg; msg.clear();
 
     sockets.clear();
 
@@ -64,8 +65,8 @@ void QController::onRequestReceived(QObject* socket, QString request)
     {
         case Action::S_LOG_IN:
             parser->next(&tag, &value);
-            //if (tag == "id")
-                //err = ServiceActions::login(value.toInt(), socket);
+            if (tag == "id")
+                err = ServiceActions::login(value.toInt(), socket, scokets);
             break;
         case Action::S_CREATE_GAME:
             parser->next(&tag, &value);
@@ -74,8 +75,9 @@ void QController::onRequestReceived(QObject* socket, QString request)
                 QString name = value;
                 parser->next(&tag, &value);
                 int gid;
-                //if (tag == "password")
-                    //err = ServiceActions::createGame(name, value, gid);
+                if (tag == "password")
+                    err = ServiceActions::createGame(name, value, socket, sockets, gid);
+                msg.append((QString)gid);
             }
             break;
         case Action::S_ENTER_GAME:

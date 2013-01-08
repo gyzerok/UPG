@@ -13,7 +13,7 @@ class QParser
 public:
     QParser(QString *request);
     ErrorCode next(QString *tag, QString *value);
-    QString constructResponse(ErrorCode error);
+    QString constructResponse(ErrorCode error, QString msg);
 
 private:
     static QString toString(User* user);

@@ -35,7 +35,7 @@ ErrorCode QParser::next(QString *tag, QString *value)
     return success;
 }
 
-QString QParser::constructResponse(ErrorCode error)
+QString QParser::constructResponse(ErrorCode error, QString msg)
 {
     /*
       <response>
@@ -46,22 +46,10 @@ QString QParser::constructResponse(ErrorCode error)
     m_xml = new QXmlStreamReader(m_request);
     QString result, tag, value;
 
-    result += "<response>";
-    result += QParser::toString(error);
-
-    this->next(&tag, &value);
-
-    if (tag == "type" && error == SUCCESS)
-    {
-        switch (value.toInt())
-        {
-            // заглушка
-            case Action::G_ASK_QUESTION:
-                break;
-        }
-    }
-
-    result += "</response>";
+    result.append("<response>");
+    result.append(QParser::toString(error));
+    result.append(msg);
+    result.append("</response>");
 
     return result;
 }
