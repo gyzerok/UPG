@@ -8,10 +8,10 @@ public:
     {
         S_LOG_IN,
         S_LOG_OUT,
-        S_GET_ROOM_LIST,
+        S_GET_GAME_LIST,
         S_CREATE_GAME,
-        S_ENTER_GAME,
-        S_LEAVE_GAME,
+        S_JOIN_GAME,
+        S_EXIT_GAME,
         G_SOURCE_WORD,
         G_ASK_QUESTION,
         G_MAKE_CONTACT,

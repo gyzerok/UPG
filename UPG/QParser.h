@@ -13,15 +13,14 @@ class QParser
 public:
     QParser(QString *request);
     ErrorCode next(QString *tag, QString *value);
-    QString constructResponse(ErrorCode error, QString msg);
-
-private:
+    static QString constructResponse(ErrorCode error, QString msg);
     static QString toString(User* user);
     static QString toString(Game* game);
     static QString toString(QList<User*> users);
     static QString toString(QList<Game*> games);
     static QString toString(ErrorCode errorCode);
 
+private:
     QString m_request;
     QXmlStreamReader* m_xml;
     bool m_opened;

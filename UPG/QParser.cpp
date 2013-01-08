@@ -39,12 +39,13 @@ QString QParser::constructResponse(ErrorCode error, QString msg)
 {
     /*
       <response>
-        <error>1</error>
+        <error>msg</error>
+        <type>1</type>
+        <uid>2</uid>
         остальное опционально в зависимости от запроса
       </response>
     */
-    m_xml = new QXmlStreamReader(m_request);
-    QString result, tag, value;
+    QString result;
 
     result.append("<response>");
     result.append(QParser::toString(error));
@@ -102,21 +103,27 @@ QString QParser::toString(QList<User *> users)
 
 QString QParser::toString(QList<Game *> games)
 {
-    QString result = "<games>";
+    QString result;
 
     foreach (Game* game, games)
     {
-        // <game id="10203" name="OLOLO" curPlayers="10" maxPlayers="15">
+        // <gid>123</gid>
+        // <name>OLOLO</name>
+        // <curPlayers>10</curPlayers>
+        // <maxPlayers>15</maxPlayers>
+        result.append("<gid>");
         result.append(game->getGid());
-        result.append("\" name=\"");
+        result.append("</gid>");
+        result.append("<name>");
         result.append(game->getName());
-        result.append("\" curPlayers=\"");
+        result.append("</name>");
+        result.append("<curPlayers>");
         result.append(game->getCurUserCount());
-        result.append("\" maxPlayers=\"");
+        result.append("</curPlayers>");
+        result.append("<maxPlayers>");
         result.append(game->getMaxUserCount());
-        result.append("\">");
+        result.append("maxPlayers");
     }
-    result.append("</games>");
 
     return result;
 }

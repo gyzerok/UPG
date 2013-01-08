@@ -47,7 +47,7 @@ QController::QController()
 
 void QController::onRequestReceived(QObject* socket, QString request)
 {
-    ErrorCode err = UNKNOWN_ERROR;
+    ErrorCode err = INCORRECT_XML;
     QList<QObject*> sockets;
     QString msg; msg.clear();
 
@@ -63,11 +63,18 @@ void QController::onRequestReceived(QObject* socket, QString request)
 
     switch (type)
     {
+        /*
+                    SERVER SIDE ACTIONS
+        */
         case Action::S_LOG_IN:
             parser->next(&tag, &value);
             if (tag == "id")
-                err = ServiceActions::login(value.toInt(), socket, sockets);
+            {
+                err = ServiceActions::login(value.toInt(), socket, scokets);
+                msg << "<uid>" << value.toInt() << "</uid>";
+            }
             break;
+
         case Action::S_CREATE_GAME:
             parser->next(&tag, &value);
             if (tag == "name")
@@ -76,20 +83,42 @@ void QController::onRequestReceived(QObject* socket, QString request)
                 parser->next(&tag, &value);
                 int gid;
                 if (tag == "password")
+                {
                     err = ServiceActions::createGame(name, value, socket, sockets, gid);
-                msg.append((QString)gid);
+                    msg.append(gid);
+                }
             }
             break;
-        case Action::S_ENTER_GAME:
+
+        case Action::S_JOIN_GAME:
             parser->next(&tag, &value);
             if (tag == "uid")
             {
                 int uid = value.toInt();
+                msg << "<uid>" << uid << "</uid>";
                 parser->next(&tag, &value);
-                //if (tag == "gid")
-                    //err = ServiceActions::joinGame(uid, value.toInt(), sockets);
+                if (tag == "gid")
+                    err = ServiceActions::joinGame(uid, value.toInt(), socket, sockets);
             }
             break;
+
+        case Action::S_EXIT_GAME:
+            parser->next(&tag, &value);
+            if (tag = "uid")
+            {
+                err = ServiceActions::exitGame(value.toInt(), socket, sockets);
+                msg << "<uid>" << value.toInt() << "</uid>";
+            }
+            break;
+
+        case Action::S_GET_GAME_LIST:
+            QList<Game *> glist; glist.clear();
+            err = ServiceActions::getGameList(socket, sockets, glist);
+            msg = QParser::toString(glist);
+            break;
+        /*
+                    GAME SIDE ACTIONS
+        */
         case Action::G_START_GAME:
             parser->next(&tag, &value);
             if (tag == "gid")
@@ -130,7 +159,8 @@ void QController::onRequestReceived(QObject* socket, QString request)
     }
 
     QString response;
-    response = parser->constructResponse(err, msg);
+    response << "<type>" << type << "</type>" << msg;
+    response = parser->constructResponse(err, response);
     emit responseReady(sockets, response);
 }
 
