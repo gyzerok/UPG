@@ -121,11 +121,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
     return err;
 }
 
-<<<<<<< HEAD
-ErrorCode ServiceActions::getGameList(void *socket, QList<void*> sockets, QList<Game*>& gameList)
-=======
-ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject *> sockets, QList<Game *>& gameList)
->>>>>>> 6dbb9a8df3f53e2e28dd65718cd43d026d73c488
+ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject*> sockets, QList<Game *>& gameList)
 {
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
