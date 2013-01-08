@@ -130,7 +130,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
     }
 
     QString response;
-    response = parser->constructResponse(err);
+    response = parser->constructResponse(err, msg);
     emit responseReady(sockets, response);
 }
 
