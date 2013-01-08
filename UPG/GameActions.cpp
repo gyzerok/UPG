@@ -7,7 +7,7 @@ GameActions::GameActions()
 {
 }
 
-ErrorCode GameActions::startGame(int gid, QList<QObject *>& sockets)
+ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets)
 {
     ErrorCode err = UNKNOWN_ERROR;
 
@@ -38,7 +38,7 @@ ErrorCode GameActions::startGame(int gid, QList<QObject *>& sockets)
     return err;
 }
 
-ErrorCode GameActions::makeaWord(int gid, QString word, QObject* socket, QList<QObject *>& sockets)
+ErrorCode GameActions::makeaWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets)
 {
     ErrorCode err = UNKNOWN_ERROR;
 
@@ -69,12 +69,14 @@ ErrorCode GameActions::makeaWord(int gid, QString word, QObject* socket, QList<Q
     return err;
 }
 
-ErrorCode GameActions::guesstheWord(int gid, QString word, QObject *socket, QList<QObject *> &sockets)
+
+ErrorCode GameActions::guesstheWord(int gid, QString word, QObject *socket, QList<QObject*> &sockets)
 {
     return SUCCESS;
 }
 
-ErrorCode GameActions::offeraWord(int gid, QString word, QObject *socket, QList<QObject *>& sockets)
+
+ErrorCode GameActions::offeraWord(int gid, QString word, QObject *socket, QList<QObject*>& sockets)
 {
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();

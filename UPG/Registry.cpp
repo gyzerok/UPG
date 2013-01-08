@@ -32,7 +32,7 @@ ErrorCode Registry::getUser(int uid, User* user)
     return SUCCESS;
 }
 
-ErrorCode Registry::getUserList(QList<User *> &userList)
+ErrorCode Registry::getUserList(QList<User*> &userList)
 {
     if (m_users.empty()) return USERLIST_IS_EMPTY;
 
@@ -48,7 +48,7 @@ ErrorCode Registry::getGame(int gid, Game* game)
     return SUCCESS;
 }
 
-ErrorCode Registry::getGameList(QList<Game *> &gameList)
+ErrorCode Registry::getGameList(QList<Game*> &gameList)
 {
     if (m_games.empty()) return GAMELIST_IS_EMPTY;
 

@@ -168,3 +168,4 @@ void QController::onClientDisconnected(QObject *socket)
 {
     ServiceActions::logout(socket);
 }
+

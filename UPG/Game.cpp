@@ -99,14 +99,14 @@ ErrorCode Game::getPlayers(QList<User*>& players)
     return SUCCESS;
 }
 
-ErrorCode Game::getGuessers(QMap<void *, QString> &guessers)
+ErrorCode Game::getGuessers(QMap<void*, QString> &guessers)
 {
     guessers = m_guessers;
 
     return SUCCESS;
 }
 
-ErrorCode Game::addGuesser(void *guesser, QString word)
+ErrorCode Game::addGuesser(void* guesser, QString word)
 {
     if (m_guessers.count()>2)
         return  TOO_MANY_GUESSERS;
