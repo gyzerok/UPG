@@ -44,9 +44,9 @@ QString Game::getName()
     return m_name;
 }
 
-ErrorCode Game::getHost(User* user)
+ErrorCode Game::getHost(User** user)
 {
-    user = m_host;
+    *user = m_host;
 
     return SUCCESS;
 }

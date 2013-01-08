@@ -10,19 +10,29 @@ template <class T> void SafeRelease(T **ppT)
     }
 }
 
+bool checkSocket(int uid, QObject* socket)
+{
+    Registry* registry = Registry::instance();
+    User* user;
+    registry->getUser(uid, &user);
+    if (socket != user->getSocket()) return false;
+
+    return true;
+}
+
 ServiceActions::ServiceActions()
 {
 }
 
 ErrorCode ServiceActions::login(int uid, QObject* socket, QList<QObject*>& sockets)
 {
+    sockets.append(socket);
+
     Registry* registry = Registry::instance();
     if (registry->isUserOnline(uid)) return USER_ALREADY_ONLINE;
 
     User* user = new User(uid, socket);
     registry->addUser(uid, user);
-
-    sockets.append(socket);
 
     return SUCCESS;
 }
@@ -53,19 +63,24 @@ ErrorCode ServiceActions::logout(QObject *socket)
 
 ErrorCode ServiceActions::createGame(int uid, QString name, QString pass, QObject* socket, QList<QObject*>& sockets, int& gid)
 {
+    sockets.append(socket);
+
+    if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
+
     Registry* registry = Registry::instance();
 
     Game* game = new Game(name, pass);
     registry->addGame(game->getGid(), game);
     gid = game->getGid();
 
-    sockets.append(socket);
-
     return SUCCESS;
 }
 
 ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObject *>& sockets)
 {
+    sockets.append(socket);
+    if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
+
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
@@ -73,11 +88,11 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObj
 
     Game* game;
     if (err == SUCCESS)
-        err = registry->getGame(gid, game);
+        err = registry->getGame(gid, &game);
 
     User* user;
     if (err == SUCCESS)
-        err = registry->getUser(uid, user);
+        err = registry->getUser(uid, &user);
 
     if (err == SUCCESS)
         err = game->addUser(user);
@@ -90,11 +105,17 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObj
 
 ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& sockets)
 {
+    if (socket != NULL)
+        sockets.append(socket);
+
+    if (socket != NULL)
+        if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
+
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
     User* user;
-    err = registry->getUser(uid, user);
+    err = registry->getUser(uid, &user);
 
     int gid;
     if (err == SUCCESS)
@@ -102,7 +123,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
 
     Game* game;
     if (err == SUCCESS)
-        err = registry->getGame(gid, game);
+        err = registry->getGame(gid, &game);
 
     if (err == SUCCESS)
         err = game->removeUser(user);
@@ -115,19 +136,19 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
             SafeRelease(&game);
         }
 
-    if (socket != NULL)
-        sockets.append(socket);
-
     return err;
 }
 
 ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject*> sockets, QList<Game *>& gameList)
 {
+    sockets.append(socket);
+
+    if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
+
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
     err = registry->getGameList(gameList);
-    sockets.append(socket);
 
     return SUCCESS;
 }

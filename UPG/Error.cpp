@@ -18,6 +18,7 @@ Error::Error()
     m_errors[THERE_IS_NO_SUCH_USER_IN_THAT_GAME] = "There is no such user in that game";
     m_errors[UNKNOWN_REQUEST_TYPE] = "Unknown request type";
     m_errors[INCORRECT_XML] = "Incorrect xml";
+    m_errors[ARE_YOU_KIDDING_ME] = "Are you kidding me?";
 }
 
 QString Error::getString(ErrorCode errorCode)

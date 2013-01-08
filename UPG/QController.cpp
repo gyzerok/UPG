@@ -90,11 +90,11 @@ void QController::onRequestReceived(QObject* socket, QString request)
             {
                 QString name = value;
                 parser->next(&tag, &value);
-                int gid;
+                int gid = 0;
                 if (tag == "password")
                 {
                     err = ServiceActions::createGame(uid, name, value, socket, sockets, gid);
-                    msg.append(QString("%1").arg(gid));
+                    msg.append(QString("<gid>%1</gid>").arg(gid));
                 }
             }
             break;
