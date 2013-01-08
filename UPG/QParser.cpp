@@ -35,19 +35,24 @@ ErrorCode QParser::next(QString *tag, QString *value)
     return success;
 }
 
-QString QParser::constructResponse(QString msg)
+QString QParser::constructResponse(ErrorCode error, int type, QString msg)
 {
     /*
       <response>
         <error>msg</error>
         <type>1</type>
-        <uid>2</uid>
         остальное опционально в зависимости от запроса
       </response>
     */
     QString result;
 
     result.append("<response>");
+    result.append("<error>");
+    result.append(QParser::toString(error));
+    result.append("</error>");
+    result.append("<type>");
+    result.append(type);
+    result.append("</type>");
     result.append(msg);
     result.append("</response>");
 

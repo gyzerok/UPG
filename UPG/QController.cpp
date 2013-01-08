@@ -160,18 +160,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
     }
 
     QString response;
-    response = QParser::toString(err);
-    if (err == SUCCESS)
-    {
-        response.append("<type>");
-        response.append(type);
-        response.append("</type>");
-        response.append("<uid>");
-        response.append(uid);
-        response.append("</uid>");
-        response.append(msg);
-    }
-    response = parser->constructResponse(response);
+    response = QParser::constructResponse(err, type, msg);
     emit responseReady(sockets, response);
 }
 
