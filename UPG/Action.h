@@ -6,7 +6,7 @@ class Action
 public:
     enum Type
     {
-        S_LOG_IN,
+        S_LOG_IN = 0,
         S_LOG_OUT,
         S_GET_GAME_LIST,
         S_CREATE_GAME,

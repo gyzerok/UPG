@@ -35,7 +35,7 @@ ErrorCode QParser::next(QString *tag, QString *value)
     return success;
 }
 
-QString QParser::constructResponse(ErrorCode error, int type, QString msg)
+QString QParser::constructResponse(ErrorCode errorCode, int type, QString msg)
 {
     /*
       <response>
@@ -44,14 +44,15 @@ QString QParser::constructResponse(ErrorCode error, int type, QString msg)
         остальное опционально в зависимости от запроса
       </response>
     */
+    Error error;
     QString result;
 
     result.append("<response>");
     result.append("<error>");
-    result.append(QParser::toString(error));
+    result.append(error.getString(errorCode));
     result.append("</error>");
     result.append("<type>");
-    result.append(type);
+    result.append((QString)type);
     result.append("</type>");
     result.append(msg);
     result.append("</response>");
@@ -129,12 +130,5 @@ QString QParser::toString(QList<Game *> games)
         result.append("maxPlayers");
     }
 
-    return result;
-}
-
-QString QParser::toString(ErrorCode errorCode)
-{
-    Error error;
-    QString result = "<error>" + error.getString(errorCode) + "</error>";
     return result;
 }

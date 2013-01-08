@@ -36,11 +36,16 @@ void QServerSide::onReadyRead()
         socket->flush();
     }
     else
-        emit requestReceived(socket, *request);
+    {
+        //emit requestReceived(socket, *request);
+        QString temp = "ololo";
+        socket->write(temp.toAscii().append(QChar::Null));
+    }
 }
 
 void QServerSide::onResponseReady(QList<QObject*> sockets, QString response)
 {
+    qDebug() << response.toAscii();
     foreach (QObject* socket, sockets)
     {
         QTcpSocket* target = qobject_cast<QTcpSocket*>(socket);
