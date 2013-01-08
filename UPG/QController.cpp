@@ -14,12 +14,13 @@ QController::QController()
 логин
         <request>
             <type>1</type>
-            <id>2</id>
+            <uid>2</uid>
         </request>
 
 создание игры
         <request>
             <type>1</type>
+            <uid>2</uid>
             <name>olo</type>
             <password>lol</password>
         </request>
@@ -34,12 +35,14 @@ QController::QController()
 начало игры
         <request>
             <type>1</type>
+            <uid>3</uid>
             <gid>2</gid>
         </request>
 
 загадать слово, слово отгадано, предложить вариант
         <request>
             <type>1</type>
+            <uid>2</uid>
             <gid>2</gid>
             <word>слово</word>
         </request>
@@ -54,25 +57,31 @@ void QController::onRequestReceived(QObject* socket, QString request)
     sockets.clear();
 
     QParser* parser = new QParser(&request);
+    QList<Game *> glist; glist.clear();
     QString tag, value;
     int type = -1;
+    int uid = -1;
+    bool flag = false;
 
     if (parser->next(&tag, &value) == SUCCESS)
         if (tag == "type")
+        {
             type = value.toInt();
-
+            if (parser->next(&tag, &value) == SUCCESS)
+                if (tag == "uid")
+                {
+                    uid = value.toInt();
+                    flag = true;
+                }
+        }
+    if (flag)
     switch (type)
     {
         /*
                     SERVER SIDE ACTIONS
         */
         case Action::S_LOG_IN:
-            parser->next(&tag, &value);
-            if (tag == "id")
-            {
-                err = ServiceActions::login(value.toInt(), socket, scokets);
-                msg << "<uid>" << value.toInt() << "</uid>";
-            }
+                err = ServiceActions::login(uid, socket, sockets);
             break;
 
         case Action::S_CREATE_GAME:
@@ -84,7 +93,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
                 int gid;
                 if (tag == "password")
                 {
-                    err = ServiceActions::createGame(name, value, socket, sockets, gid);
+                    err = ServiceActions::createGame(uid, name, value, socket, sockets, gid);
                     msg.append(gid);
                 }
             }
@@ -92,28 +101,16 @@ void QController::onRequestReceived(QObject* socket, QString request)
 
         case Action::S_JOIN_GAME:
             parser->next(&tag, &value);
-            if (tag == "uid")
-            {
-                int uid = value.toInt();
-                msg << "<uid>" << uid << "</uid>";
-                parser->next(&tag, &value);
-                if (tag == "gid")
-                    err = ServiceActions::joinGame(uid, value.toInt(), socket, sockets);
-            }
+            if (tag == "gid")
+                err = ServiceActions::joinGame(uid, value.toInt(), socket, sockets);
             break;
 
         case Action::S_EXIT_GAME:
-            parser->next(&tag, &value);
-            if (tag = "uid")
-            {
-                err = ServiceActions::exitGame(value.toInt(), socket, sockets);
-                msg << "<uid>" << value.toInt() << "</uid>";
-            }
+            err = ServiceActions::exitGame(uid, socket, sockets);
             break;
 
         case Action::S_GET_GAME_LIST:
-            QList<Game *> glist; glist.clear();
-            err = ServiceActions::getGameList(socket, sockets, glist);
+            err = ServiceActions::getGameList(uid, socket, sockets, glist);
             msg = QParser::toString(glist);
             break;
         /*
@@ -124,6 +121,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             if (tag == "gid")
                 err = GameActions::startGame(value.toInt(), sockets);
             break;
+
         case Action::G_MAKE_A_WORD:
             parser->next(&tag, &value);
             if (tag == "gid")
@@ -134,6 +132,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
                     err = GameActions::makeaWord(gid, value, socket, sockets);
             }
             break;
+
         case Action::G_GUESS_THE_WORD:
             parser->next(&tag, &value);
             if (tag == "gid")
@@ -144,6 +143,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
                     err = GameActions::guesstheWord(gid, value, socket, sockets);
             }
             break;
+
         case Action::G_OFFER_A_WORD:
             parser->next(&tag, &value);
             if (tag == "gid")
@@ -154,13 +154,24 @@ void QController::onRequestReceived(QObject* socket, QString request)
                     err = GameActions::offeraWord(gid, value, socket, sockets);
             }
             break;
+
         default:
             err = UNKNOWN_REQUEST_TYPE;
     }
 
     QString response;
-    response << "<type>" << type << "</type>" << msg;
-    response = parser->constructResponse(err, response);
+    response = QParser::toString(err);
+    if (err == SUCCESS)
+    {
+        response.append("<type>");
+        response.append(type);
+        response.append("</type>");
+        response.append("<uid>");
+        response.append(uid);
+        response.append("</uid>");
+        response.append(msg);
+    }
+    response = parser->constructResponse(response);
     emit responseReady(sockets, response);
 }
 

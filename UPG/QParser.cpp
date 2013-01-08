@@ -35,7 +35,7 @@ ErrorCode QParser::next(QString *tag, QString *value)
     return success;
 }
 
-QString QParser::constructResponse(ErrorCode error, QString msg)
+QString QParser::constructResponse(QString msg)
 {
     /*
       <response>
@@ -48,7 +48,6 @@ QString QParser::constructResponse(ErrorCode error, QString msg)
     QString result;
 
     result.append("<response>");
-    result.append(QParser::toString(error));
     result.append(msg);
     result.append("</response>");
 
