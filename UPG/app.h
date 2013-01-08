@@ -1,18 +1,19 @@
-#ifndef APP_H
-#define APP_H
+#ifndef _APP_H
+#define _APP_H
 
-#include "QServerSide.h"
-#include "QParser.h"
+
+#include "qserverside.h"
 #include "QController.h"
 
-class App
-{
-public:
+class App {
+  public:
     App();
 
-private:
-    QServerSide     m_server;
-    QController     m_controller;
-};
 
-#endif // APP_H
+  private:
+    QServerSide m_server;
+
+    QController m_controller;
+
+};
+#endif

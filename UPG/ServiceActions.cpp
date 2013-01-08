@@ -79,7 +79,7 @@ ErrorCode ServiceActions::exitGame(int uid, void *socket, QList<void*>& sockets)
     return err;
 }
 
-ErrorCode ServiceActions::getGameList(void *socket, QList<void *> sockets, QList<Game *>& gameList)
+ErrorCode ServiceActions::getGameList(void *socket, QList<void*> sockets, QList<Game*>& gameList)
 {
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();

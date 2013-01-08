@@ -46,12 +46,12 @@ QString QParser::toString(Game *game)
     return "_";
 }
 
-QString QParser::toString(QList<User *> users)
+QString QParser::toString(QList<User*> users)
 {
     return "_";
 }
 
-QString QParser::toString(QList<Game *> games)
+QString QParser::toString(QList<Game*> games)
 {
     QString result = "<games>";
 

@@ -9,7 +9,7 @@ QController::QController()
 }
 
 /*
-  ВНИМАНИЕ!!! порядок тегов важен!!!
+
 
 логин
         <request>
