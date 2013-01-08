@@ -16,8 +16,8 @@ public:
     static QString constructResponse(ErrorCode errorCode, int type, QString msg);
     static QString toString(User* user);
     static QString toString(Game* game);
-    static QString toString(QList<User*> users);
-    static QString toString(QList<Game*> games);
+    static QString toString(QList<User*>& users);
+    static QString toString(QList<Game*>& games);
 
 private:
     QString m_request;

@@ -96,7 +96,7 @@ QString QParser::toString(Game *game)
     return result;
 }
 
-QString QParser::toString(QList<User *> users)
+QString QParser::toString(QList<User *>& users)
 {
     // <uid>123</uid>
     // <gid>321<gid>
@@ -108,7 +108,7 @@ QString QParser::toString(QList<User *> users)
     return result;
 }
 
-QString QParser::toString(QList<Game *> games)
+QString QParser::toString(QList<Game *>& games)
 {
     QString result;
 
@@ -118,18 +118,12 @@ QString QParser::toString(QList<Game *> games)
         // <name>OLOLO</name>
         // <curPlayers>10</curPlayers>
         // <maxPlayers>15</maxPlayers>
-        result.append("<gid>");
-        result.append(game->getGid());
-        result.append("</gid>");
+        result.append(QString("<gid>%1</gid>").arg(game->getGid()));
         result.append("<name>");
         result.append(game->getName());
         result.append("</name>");
-        result.append("<curPlayers>");
-        result.append(game->getCurUserCount());
-        result.append("</curPlayers>");
-        result.append("<maxPlayers>");
-        result.append(game->getMaxUserCount());
-        result.append("maxPlayers");
+        result.append(QString("<curPlayers>%1</curPlayers>").arg(game->getCurUserCount()));
+        result.append(QString("<maxPlayers>%1</maxPlayers>").arg(game->getMaxUserCount()));
     }
 
     return result;
