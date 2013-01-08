@@ -62,3 +62,8 @@ Registry::Registry()
 }
 
 Registry* Registry::m_instance = NULL;
+
+void Registry::removeGame(int gid)
+{
+    m_games.remove(gid);
+}

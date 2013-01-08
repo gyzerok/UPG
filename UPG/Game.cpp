@@ -75,6 +75,12 @@ bool Game::checkPass(QString pass)
     return m_pass == pass;
 }
 
+bool Game::isEmpty()
+{
+    if (m_players.count() + m_observers.count() == 0) return true;
+    else return false;
+}
+
 ErrorCode Game::getUsers(QList<User*>& users)
 {
     QList<User*> result;

@@ -66,7 +66,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
         case Action::S_LOG_IN:
             parser->next(&tag, &value);
             if (tag == "id")
-                err = ServiceActions::login(value.toInt(), socket, scokets);
+                err = ServiceActions::login(value.toInt(), socket, sockets);
             break;
         case Action::S_CREATE_GAME:
             parser->next(&tag, &value);
@@ -136,5 +136,5 @@ void QController::onRequestReceived(QObject* socket, QString request)
 
 void QController::onClientDisconnected(QObject *socket)
 {
-
+    ServiceActions::logout(socket);
 }
