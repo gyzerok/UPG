@@ -7,7 +7,7 @@ GameActions::GameActions()
 {
 }
 
-ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets)
+ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets, Game& gamestate, void& host)
 {
     ErrorCode err = UNKNOWN_ERROR;
 
@@ -32,9 +32,14 @@ ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets)
         if (players.count() < 3)
             return NOT_ENOUGH_PLAYERS_TO_START_THE_GAME;
         else
-            return SUCCESS;
+        {
+            game->changeState(Game::GAME_STARTED);
+            err = SUCCESS;
+        }
     }
 
+    host = game->chooseHost();
+    gamestate = game;
     return err;
 }
 

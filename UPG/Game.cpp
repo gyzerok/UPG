@@ -131,7 +131,8 @@ ErrorCode Game::addUser(User *user)
 void* Game::chooseHost()
 {
     int temp = randomInt(0, m_players.count() - 1);
-    return m_players.value(temp)->getSocket();
+    m_host = m_players.value(temp)->getSocket();
+    return m_host;
 }
 
 int Game::randomInt(int low, int high)
