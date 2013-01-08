@@ -39,12 +39,13 @@ void QServerSide::onReadyRead()
         emit requestReceived(socket, *request);
 }
 
-void QServerSide::onResponseReady(QList<void*> sockets, QString response)
+void QServerSide::onResponseReady(QList<QObject*> sockets, QString response)
 {
-    foreach (void* socket, sockets)
+    foreach (QObject* socket, sockets)
     {
-        //(QTcpSocket*)socket->write(response->toUtf8().append(QChar::Null));
-        //(QTcpSocket*)socket->flush();
+        QTcpSocket* target = qobject_cast<QTcpSocket*>(socket);
+        target->write(response.toUtf8().append(QChar::Null));
+        target->flush();
     }
 }
 
@@ -54,7 +55,6 @@ void QServerSide::onDisconnected()
 
     qDebug() << "Disconnecting client... Socket id:" << socket->socketDescriptor();
 
-    //m_clients.remove(socket->socketDescriptor());
     socket->close();
     socket->deleteLater();
 

@@ -19,6 +19,8 @@ public:
 
     void                    addUser(int uid, User* user);
     void                    addGame(int gid, Game* game);
+    void                    removeUser(int uid);
+    void                    removeGame(int gid);
 
     ErrorCode               getUser(int uid, User* user);
     ErrorCode               getUserList(QList<User*>& userList);

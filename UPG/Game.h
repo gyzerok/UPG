@@ -40,6 +40,7 @@ public:
     ErrorCode               removeUser(User* user);
 
     bool                    checkPass(QString pass);
+    bool                    isEmpty();
 
 private:
     int                     randomInt(int low, int high);

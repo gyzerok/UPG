@@ -5,10 +5,13 @@
 
 GameActions::GameActions()
 {
-
 }
 
+<<<<<<< HEAD
 ErrorCode GameActions::startGame(int gid, QList<void*>& sockets)
+=======
+ErrorCode GameActions::startGame(int gid, QList<QObject *>& sockets)
+>>>>>>> 6dbb9a8df3f53e2e28dd65718cd43d026d73c488
 {
     ErrorCode err = UNKNOWN_ERROR;
 
@@ -39,7 +42,11 @@ ErrorCode GameActions::startGame(int gid, QList<void*>& sockets)
     return err;
 }
 
+<<<<<<< HEAD
 ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void*>& sockets)
+=======
+ErrorCode GameActions::makeaWord(int gid, QString word, QObject* socket, QList<QObject *>& sockets)
+>>>>>>> 6dbb9a8df3f53e2e28dd65718cd43d026d73c488
 {
     ErrorCode err = UNKNOWN_ERROR;
 
@@ -70,12 +77,20 @@ ErrorCode GameActions::makeaWord(int gid, QString word, void* socket, QList<void
     return err;
 }
 
+<<<<<<< HEAD
 ErrorCode GameActions::guesstheWord(int gid, QString word, void *socket, QList<void*> &sockets)
+=======
+ErrorCode GameActions::guesstheWord(int gid, QString word, QObject *socket, QList<QObject *> &sockets)
+>>>>>>> 6dbb9a8df3f53e2e28dd65718cd43d026d73c488
 {
     return SUCCESS;
 }
 
+<<<<<<< HEAD
 ErrorCode GameActions::offeraWord(int gid, QString word, void *socket, QList<void*>& sockets)
+=======
+ErrorCode GameActions::offeraWord(int gid, QString word, QObject *socket, QList<QObject *>& sockets)
+>>>>>>> 6dbb9a8df3f53e2e28dd65718cd43d026d73c488
 {
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();

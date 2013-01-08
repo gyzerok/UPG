@@ -6,19 +6,19 @@
 #include "Error.h"
 #include "Game.h"
 #include "User.h"
+#include "Action.h"
 
 class QParser
 {
 public:
     QParser(QString *request);
     ErrorCode next(QString *tag, QString *value);
-
+    static QString constructResponse(ErrorCode error, int type, QString msg);
     static QString toString(User* user);
     static QString toString(Game* game);
     static QString toString(QList<User*> users);
     static QString toString(QList<Game*> games);
     static QString toString(ErrorCode errorCode);
-    static QString constructResponse(QList<QString>& strings);
 
 private:
     QString m_request;

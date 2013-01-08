@@ -3,25 +3,26 @@
 
 #include "Error.h"
 #include <QString>
+#include <QObject>
 
 class User
 {
 public:
-    User(int uid, void* socket);
+    User(int uid, QObject* socket);
 
-    void*   getSocket();
-    int     getUid();
+    QObject*    getSocket();
+    int         getUid();
     ErrorCode   getCurrentGid(int& gid);
 
     ErrorCode   setCurrentGid(int gid);
 
     ErrorCode   removeCurrentGid();
 
-    QString m_guessword;
+    QString     m_guessword;
 private:
-    int     m_uid;
-    int     m_gid;
-    void*   m_socket;
+    int         m_uid;
+    int         m_gid;
+    QObject*    m_socket;
 };
 
 #endif // USER_H

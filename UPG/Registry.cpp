@@ -20,6 +20,11 @@ void Registry::addGame(int gid, Game *game)
     m_games.insert(gid, game);
 }
 
+void Registry::removeUser(int uid)
+{
+    m_users.remove(uid);
+}
+
 ErrorCode Registry::getUser(int uid, User* user)
 {
     user = m_users.value(uid);
@@ -57,3 +62,8 @@ Registry::Registry()
 }
 
 Registry* Registry::m_instance = NULL;
+
+void Registry::removeGame(int gid)
+{
+    m_games.remove(gid);
+}

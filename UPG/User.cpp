@@ -2,14 +2,14 @@
 #include <QTime>
 #include "Registry.h"
 
-User::User(int uid, void* socket)
+User::User(int uid, QObject* socket)
 {
     m_uid = uid;
     m_gid = NULL;
     m_socket = socket;
 }
 
-void* User::getSocket()
+QObject* User::getSocket()
 {
     return m_socket;
 }
