@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QString>
+#include <QPair>
 #include "Error.h"
 #include "User.h"
 
@@ -13,7 +14,7 @@ public:
     {
         PREGAME = 0,
         GAME_STARTED,
-        WORD_OFFERED,
+        WORD_MADE_UP,
         QUESTION_ASKED,
         CONTACT,
         CONTACT_SUCCEED,
@@ -23,54 +24,61 @@ public:
     Game();
     Game(QString name, QString pass, int maxUsers = 10);
 
-    int                     getGid();
+    int                         getGid();
 
 
-    ErrorCode               getState(GameState& state);
-    ErrorCode               getHost(User** user);
-    ErrorCode               getUsers(QList<User*>& users);
-    ErrorCode               getPlayers(QList<User*>& players);
-    ErrorCode               getObservers(QList<User*>& observers);
-    ErrorCode               getGuessers(QMap<void*, QString>& guessers);
-    int                     getCurUserCount();
-    int                     getMaxUserCount();
-    int                     getOpenedChars();
-    QString                 getName();
-    QString                 getSourceWord();
-    QString                 getQuestion();
+    ErrorCode                   getState(GameState& state);
+    ErrorCode                   getHost(User** user);
+    ErrorCode                   getUsers(QList<User*>& users);
+    ErrorCode                   getPlayers(QList<User*>& players);
+    ErrorCode                   getObservers(QList<User*>& observers);
+    ErrorCode                   getActivePlayers(QList<QPair<int, QString> > &activePlayers);
+    int                         getCurUserCount();
+    int                         getMaxUserCount();
+    int                         getOpenedChars();
+    int                         getActivePlayersCount();
+    QString                     getName();
+    QString                     getSourceWord();
+    QString                     getQuestion();
 
-    ErrorCode               addGuesser(void* guesser, QString word);
-    ErrorCode               addUser(User* user);
-    ErrorCode               setWord(QString word);
-    ErrorCode               changeState(GameState state);
-    ErrorCode               makePlayer(User* user);
-    ErrorCode               makeObserver(User* user);
+    ErrorCode                   addActivePlayer(int uid, QString word);
+    ErrorCode                   addUser(User* user);
+    ErrorCode                   setWord(QString word);
+    ErrorCode                   changeState(GameState state);
+    ErrorCode                   chooseHost();
+    ErrorCode                   makePlayer(User* user);
+    ErrorCode                   makeObserver(User* user);
 
-    ErrorCode               removeUser(User* user);
+    ErrorCode                   removeUser(User* user);
 
-    bool                    checkPass(QString pass);
-    bool                    isEmpty();
-    bool                    isPlayer(User* user);
-    bool                    isObserver(User* user);
+    bool                        checkPass(QString pass);
+    bool                        isEmpty();
+    bool                        isPlayer(User* user);
+    bool                        isObserver(User* user);
+    void                        reset();
+    void                        openNextChar();
+    void                        setQuestion(QString question);
 
 private:
-    int                     randomInt(int low, int high);
-    int                     generateGid();
-    void*                   chooseHost();
+    int                         randomInt(int low, int high);
+    int                         generateGid();
 
-    int                     m_gid;
-    QString                 m_name;
-    QString                 m_pass;
-    int                     m_maxUsers;
-    QList<User*>            m_observers;
 
-    QMap<void*, QString>    m_guessers;
-    QList<User*>            m_players;
-    GameState               m_state;
-    QString                 m_word;
-    int                     m_openedChars;
-    QString                 m_question;
-    User*                   m_host;
+
+    int                         m_gid;
+    QString                     m_name;
+    QString                     m_pass;
+    int                         m_maxUsers;
+    QList<User*>                m_observers;
+
+    QList<QPair<int, QString> > m_activePlayers;
+    QMap<QObject*, QString>     m_guessers;
+    User*                       m_host;
+    QString                     m_question;
+    QString                     m_word;
+    QList<User*>                m_players;
+    GameState                   m_state;
+    int                         m_openedChars;
 };
 
 #endif // GAME_H

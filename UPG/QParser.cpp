@@ -64,8 +64,6 @@ QString QParser::constructResponse(ErrorCode errorCode, int type, QString msg)
 
 QString QParser::toString(User *user)
 {
-    int gid;
-    user->getCurrentGid(gid);
     // <uid>123</uid>
     // <gid>321<gid>
     QString result;
@@ -73,7 +71,7 @@ QString QParser::toString(User *user)
     result.append(user->getUid());
     result.append("</uid>");
     result.append("<gid>");
-    result.append(gid);
+    result.append(user->getCurrentGid());
     result.append("</gid>");
     return result;
 }
@@ -110,7 +108,7 @@ QString QParser::toString(Game *game)
         result.append(QString("<host>%1</host>").arg(host->getUid()));
     }
 
-    if (state >= Game::WORD_OFFERED)
+    if (state >= Game::WORD_MADE_UP)
     {
         result.append(QString("<sourceWord>%1</sourceWord>").arg(game->getSourceWord()));
         result.append(QString("<openedChars>%1</openedChars>").arg(game->getOpenedChars()));

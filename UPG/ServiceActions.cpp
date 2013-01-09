@@ -136,7 +136,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
 
     int gid;
     if (err == SUCCESS)
-        err = user->getCurrentGid(gid);
+        gid = user->getCurrentGid();
 
     Game* game;
     if (err == SUCCESS)
@@ -196,13 +196,9 @@ ErrorCode ServiceActions::changeUserRole(int uid, QObject *socket, QList<QObject
     User* user;
     err = registry->getUser(uid, &user);
 
-    int gid;
-    if (err == SUCCESS)
-        err = user->getCurrentGid(gid);
-
+    int gid = user->getCurrentGid();
     Game* game;
-    if (err == SUCCESS)
-        err = registry->getGame(gid, &game);
+    err = registry->getGame(gid, &game);
 
     if (err == SUCCESS && game->isObserver(user))
         err = game->makePlayer(user);

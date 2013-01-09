@@ -71,6 +71,15 @@ QString Game::getQuestion()
     return m_question;
 }
 
+ErrorCode Game::addActivePlayer(int uid, QString word)
+{
+    QPair<int, QString> temp;
+    temp.first = uid;
+    temp.second = word;
+    m_activePlayers.append(temp);
+    return SUCCESS;
+}
+
 ErrorCode Game::getHost(User** user)
 {
     *user = m_host;
@@ -118,6 +127,21 @@ bool Game::isObserver(User *user)
     return m_observers.contains(user);
 }
 
+void Game::reset()
+{
+
+}
+
+void Game::openNextChar()
+{
+    m_openedChars++;
+}
+
+void Game::setQuestion(QString question)
+{
+    m_question = question;
+}
+
 ErrorCode Game::getUsers(QList<User*>& users)
 {
     QList<User*> result;
@@ -143,18 +167,10 @@ ErrorCode Game::getObservers(QList<User*>& observers)
     return SUCCESS;
 }
 
-ErrorCode Game::getGuessers(QMap<void*, QString> &guessers)
+ErrorCode Game::getActivePlayers(QList<QPair<int, QString> > &activePlayers)
 {
-    guessers = m_guessers;
+    activePlayers = m_activePlayers;
 
-    return SUCCESS;
-}
-
-ErrorCode Game::addGuesser(void* guesser, QString word)
-{
-    if (m_guessers.count()>2)
-        return  TOO_MANY_GUESSERS;
-    m_guessers.insert(guesser,word);
     return SUCCESS;
 }
 
@@ -172,10 +188,11 @@ ErrorCode Game::addUser(User *user)
     return SUCCESS;
 }
 
-void* Game::chooseHost()
+ErrorCode Game::chooseHost()
 {
     int temp = randomInt(0, m_players.count() - 1);
-    return m_players.value(temp)->getSocket();
+    m_guessers.insert(m_players.value(temp)->getSocket(), NULL);
+    return SUCCESS;
 }
 
 int Game::randomInt(int low, int high)
@@ -202,4 +219,9 @@ int Game::getMaxUserCount()
 int Game::getOpenedChars()
 {
     return m_openedChars;
+}
+
+int Game::getActivePlayersCount()
+{
+    return m_activePlayers.count();
 }

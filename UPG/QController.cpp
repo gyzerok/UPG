@@ -43,7 +43,6 @@ QController::QController()
         <request>
             <type>1</type>
             <uid>2</uid>
-            <gid>2</gid>
             <word>слово</word>
         </request>
 */
@@ -124,40 +123,41 @@ void QController::onRequestReceived(QObject* socket, QString request)
         case Action::G_START_GAME:
             parser->next(&tag, &value);
             if (tag == "gid")
-                err = GameActions::startGame(value.toInt(), sockets);
+                err = GameActions::startGame(value.toInt(), sockets, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
         case Action::G_MAKE_A_WORD:
             parser->next(&tag, &value);
-            if (tag == "gid")
-            {
-                int gid = value.toInt();
-                parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::makeaWord(gid, value, socket, sockets);
-            }
+            if (tag == "word")
+                err = GameActions::makeaWord(uid, socket, sockets, value, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
-        case Action::G_GUESS_THE_WORD:
+        case Action::G_ASK_QUESTION:
             parser->next(&tag, &value);
-            if (tag == "gid")
-            {
-                int gid = value.toInt();
-                parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::guesstheWord(gid, value, socket, sockets);
-            }
+            if (tag == "word")
+                err = GameActions::askQuestion(uid, socket, sockets, value, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
         case Action::G_OFFER_A_WORD:
             parser->next(&tag, &value);
-            if (tag == "gid")
-            {
-                int gid = value.toInt();
-                parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::offeraWord(gid, value, socket, sockets);
-            }
+            if (tag == "word")
+                err = GameActions::offeraWord(uid, socket, sockets, value, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
+            break;
+
+        case Action::G_BREAK_CONTACT:
+            parser->next(&tag, &value);
+            if (tag == "word")
+                err = GameActions::breakContact(uid, socket, sockets, value, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
             break;
 
         default:
