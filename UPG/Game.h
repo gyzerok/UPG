@@ -11,14 +11,17 @@ class Game
 public:
     enum GameState
     {
-        PREGAME,
+        PREGAME = 0,
         GAME_STARTED,
         WORD_OFFERED,
-        CONTACT
+        QUESTION_ASKED,
+        CONTACT,
+        CONTACT_SUCCEED,
+        CONTACT_FAILED
     };
 
+    Game();
     Game(QString name, QString pass, int maxUsers = 10);
-    QString                 toString();
 
     int                     getGid();
 
@@ -27,10 +30,14 @@ public:
     ErrorCode               getHost(User** user);
     ErrorCode               getUsers(QList<User*>& users);
     ErrorCode               getPlayers(QList<User*>& players);
+    ErrorCode               getObservers(QList<User*>& observers);
     ErrorCode               getGuessers(QMap<void*, QString>& guessers);
     int                     getCurUserCount();
     int                     getMaxUserCount();
+    int                     getOpenedChars();
     QString                 getName();
+    QString                 getSourceWord();
+    QString                 getQuestion();
 
     ErrorCode               addGuesser(void* guesser, QString word);
     ErrorCode               addUser(User* user);
@@ -57,6 +64,7 @@ private:
     QList<User*>            m_players;
     GameState               m_state;
     QString                 m_word;
+    int                     m_openedChars;
     QString                 m_question;
     User*                   m_host;
 };

@@ -2,6 +2,10 @@
 #include <QTime>
 #include "Registry.h"
 
+Game::Game()
+{
+}
+
 Game::Game(QString name, QString pass, int maxUsers)
 {
     m_state = PREGAME;
@@ -10,11 +14,6 @@ Game::Game(QString name, QString pass, int maxUsers)
     m_maxUsers = maxUsers;
     m_gid = generateGid();
     m_host = NULL;
-}
-
-QString Game::toString()
-{
-    return "_";
 }
 
 int Game::getGid()
@@ -42,6 +41,16 @@ ErrorCode Game::changeState(Game::GameState state)
 QString Game::getName()
 {
     return m_name;
+}
+
+QString Game::getSourceWord()
+{
+    return m_word;
+}
+
+QString Game::getQuestion()
+{
+    return m_question;
 }
 
 ErrorCode Game::getHost(User** user)
@@ -95,6 +104,13 @@ ErrorCode Game::getUsers(QList<User*>& users)
 ErrorCode Game::getPlayers(QList<User*>& players)
 {
     players = m_players;
+
+    return SUCCESS;
+}
+
+ErrorCode Game::getObservers(QList<User*>& observers)
+{
+    observers = m_observers;
 
     return SUCCESS;
 }
@@ -154,4 +170,9 @@ int Game::generateGid()
 int Game::getMaxUserCount()
 {
     return m_maxUsers;
+}
+
+int Game::getOpenedChars()
+{
+    return m_openedChars;
 }

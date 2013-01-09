@@ -13,6 +13,7 @@ template <class T> void SafeRelease(T **ppT)
 bool checkSocket(int uid, QObject* socket)
 {
     Registry* registry = Registry::instance();
+    if (!registry->isUserOnline(uid)) return false;
     User* user;
     registry->getUser(uid, &user);
     if (socket != user->getSocket()) return false;
@@ -53,7 +54,8 @@ ErrorCode ServiceActions::logout(QObject *socket)
             registry->removeUser(uid);
             int gid;
             err = user->removeCurrentGid();
-            ServiceActions::exitGame(uid, new QObject(), *(new QList<QObject*>()));
+            QObject* emptyObject; QList<QObject*>* emptyList; Game* emptyGame;
+            ServiceActions::exitGame(uid, emptyObject, *emptyList, &emptyGame);
             SafeRelease(&user);
         }
     }
@@ -76,7 +78,7 @@ ErrorCode ServiceActions::createGame(int uid, QString name, QString pass, QObjec
     return SUCCESS;
 }
 
-ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObject *>& sockets)
+ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObject *>& sockets, Game** outGame)
 {
     sockets.append(socket);
     if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
@@ -99,10 +101,26 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObj
     if (err == SUCCESS)
         err = user->setCurrentGid(game->getGid());
 
+    //
+    QList<User*> users;
+    if (err == SUCCESS)
+        err = game->getUsers(users);
+
+    if (err == SUCCESS)
+    {
+        sockets.clear();
+        foreach (User* iUser, users)
+            sockets.append(iUser->getSocket());
+    }
+
+    if (err == SUCCESS)
+        *outGame = game;
+    //
+
     return err;
 }
 
-ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& sockets)
+ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& sockets, Game** outGame)
 {
     if (socket != NULL)
         sockets.append(socket);
@@ -126,6 +144,20 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
 
     if (err == SUCCESS)
         err = game->removeUser(user);
+
+    QList<User*> users;
+    if (err == SUCCESS)
+        err = game->getUsers(users);
+
+    if (err == SUCCESS)
+    {
+        sockets.clear();
+        foreach (User* iUser, users)
+            sockets.append(iUser->getSocket());
+    }
+
+    if (err == SUCCESS)
+        *outGame = game;
 
     if (err == SUCCESS)
         if (game->isEmpty())
