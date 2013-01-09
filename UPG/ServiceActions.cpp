@@ -183,3 +183,46 @@ ErrorCode ServiceActions::getGameList(int uid, QObject *socket, QList<QObject*>&
 
     return SUCCESS;
 }
+
+ErrorCode ServiceActions::changeUserRole(int uid, QObject *socket, QList<QObject *> &sockets, Game **outGame)
+{
+    sockets.append(socket);
+
+    if (!checkSocket(uid, socket)) return ARE_YOU_KIDDING_ME;
+
+    ErrorCode err = UNKNOWN_ERROR;
+    Registry* registry = Registry::instance();
+
+    User* user;
+    err = registry->getUser(uid, &user);
+
+    int gid;
+    if (err == SUCCESS)
+        err = user->getCurrentGid(gid);
+
+    Game* game;
+    if (err == SUCCESS)
+        err = registry->getGame(gid, &game);
+
+    if (err == SUCCESS && game->isObserver(user))
+        err = game->makePlayer(user);
+
+    if (err == SUCCESS && game->isPlayer(user))
+        err = game->makeObserver(user);
+
+    QList<User*> users;
+    if (err == SUCCESS)
+        err = game->getUsers(users);
+
+    if (err == SUCCESS)
+    {
+        sockets.clear();
+        foreach (User* iUser, users)
+            sockets.append(iUser->getSocket());
+    }
+
+    if (err == SUCCESS)
+        *outGame = game;
+
+    return err;
+}

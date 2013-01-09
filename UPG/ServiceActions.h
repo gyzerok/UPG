@@ -17,6 +17,7 @@ public:
     static ErrorCode joinGame(int uid, int gid, QObject* socket, QList<QObject*>& sockets, Game** outGame);
     static ErrorCode exitGame(int uid, QObject* socket, QList<QObject*>& sockets, Game** outGame);
     static ErrorCode getGameList(int uid, QObject* socket, QList<QObject*>& sockets, QList<Game*>& gameList);
+    static ErrorCode changeUserRole(int uid, QObject* socket, QList<QObject*>& sockets, Game** outGame);
 };
 
 #endif // SERVICEACTIONS_H

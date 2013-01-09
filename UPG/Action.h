@@ -12,6 +12,7 @@ public:
         S_CREATE_GAME,
         S_JOIN_GAME,
         S_EXIT_GAME,
+        S_CHANGE_USER_ROLE,
         G_SOURCE_WORD,
         G_ASK_QUESTION,
         G_MAKE_CONTACT,

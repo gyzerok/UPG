@@ -19,6 +19,8 @@ Error::Error()
     m_errors[UNKNOWN_REQUEST_TYPE] = "Unknown request type";
     m_errors[INCORRECT_XML] = "Incorrect xml";
     m_errors[ARE_YOU_KIDDING_ME] = "Are you kidding me?";
+    m_errors[USER_ALREADY_OBSERVER] = "You are already observer";
+    m_errors[USER_ALREADY_PLAYER] = "You are already player";
 }
 
 QString Error::getString(ErrorCode errorCode)

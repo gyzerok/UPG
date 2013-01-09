@@ -38,6 +38,24 @@ ErrorCode Game::changeState(Game::GameState state)
     return SUCCESS;
 }
 
+ErrorCode Game::makePlayer(User *user)
+{
+    if (this->isPlayer(user)) return USER_ALREADY_PLAYER;
+
+    m_players.append(m_observers.takeAt(m_observers.indexOf(user)));
+
+    return SUCCESS;
+}
+
+ErrorCode Game::makeObserver(User *user)
+{
+    if (this->isObserver(user)) return USER_ALREADY_OBSERVER;
+
+    m_observers.append(m_players.takeAt(m_players.indexOf(user)));
+
+    return SUCCESS;
+}
+
 QString Game::getName()
 {
     return m_name;
@@ -88,6 +106,16 @@ bool Game::isEmpty()
 {
     if (m_players.count() + m_observers.count() == 0) return true;
     else return false;
+}
+
+bool Game::isPlayer(User *user)
+{
+    return m_players.contains(user);
+}
+
+bool Game::isObserver(User *user)
+{
+    return m_observers.contains(user);
 }
 
 ErrorCode Game::getUsers(QList<User*>& users)

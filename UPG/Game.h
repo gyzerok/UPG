@@ -43,11 +43,15 @@ public:
     ErrorCode               addUser(User* user);
     ErrorCode               setWord(QString word);
     ErrorCode               changeState(GameState state);
+    ErrorCode               makePlayer(User* user);
+    ErrorCode               makeObserver(User* user);
 
     ErrorCode               removeUser(User* user);
 
     bool                    checkPass(QString pass);
     bool                    isEmpty();
+    bool                    isPlayer(User* user);
+    bool                    isObserver(User* user);
 
 private:
     int                     randomInt(int low, int high);
