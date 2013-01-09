@@ -12,7 +12,7 @@ public:
 
     QObject*    getSocket();
     int         getUid();
-    ErrorCode   getCurrentGid(int& gid);
+    int         getCurrentGid();
 
     ErrorCode   setCurrentGid(int gid);
 

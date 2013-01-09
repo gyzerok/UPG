@@ -19,11 +19,9 @@ int User::getUid()
     return m_uid;
 }
 
-ErrorCode User::getCurrentGid(int &gid)
+int User::getCurrentGid()
 {
-    gid = m_gid;
-
-    return SUCCESS;
+    return  m_gid;
 }
 
 ErrorCode User::setCurrentGid(int gid)

@@ -124,7 +124,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
         case Action::G_START_GAME:
             parser->next(&tag, &value);
             if (tag == "gid")
-                err = GameActions::startGame(value.toInt(), sockets);
+                //err = GameActions::startGame(value.toInt(), sockets);
             break;
 
         case Action::G_MAKE_A_WORD:
@@ -133,8 +133,8 @@ void QController::onRequestReceived(QObject* socket, QString request)
             {
                 int gid = value.toInt();
                 parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::makeaWord(gid, value, socket, sockets);
+                //if (tag == "word")
+                    //err = GameActions::makeaWord(gid, value, socket, sockets);
             }
             break;
 
@@ -144,8 +144,8 @@ void QController::onRequestReceived(QObject* socket, QString request)
             {
                 int gid = value.toInt();
                 parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::guesstheWord(gid, value, socket, sockets);
+                //if (tag == "word")
+                    //err = GameActions::guesstheWord(gid, value, socket, sockets);
             }
             break;
 
@@ -155,8 +155,8 @@ void QController::onRequestReceived(QObject* socket, QString request)
             {
                 int gid = value.toInt();
                 parser->next(&tag, &value);
-                if (tag == "word")
-                    err = GameActions::offeraWord(gid, value, socket, sockets);
+                //if (tag == "word")
+                    //err = GameActions::offeraWord(gid, value, socket, sockets);
             }
             break;
 

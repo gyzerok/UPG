@@ -136,7 +136,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
 
     int gid;
     if (err == SUCCESS)
-        err = user->getCurrentGid(gid);
+        gid = user->getCurrentGid();
 
     Game* game;
     if (err == SUCCESS)

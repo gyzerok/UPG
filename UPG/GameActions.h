@@ -11,11 +11,13 @@ class GameActions
 {
 public:
     GameActions();
-    static ErrorCode startGame(int gid, QList<QObject*>& sockets);
-    static ErrorCode makeaWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
-    static ErrorCode guesstheWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
-    static ErrorCode makeaQuestion(int gid, QString question, QObject* socket, QList<QObject*>& sockets);
-    static ErrorCode offeraWord(int gid, QString word, QObject* socket, QList<QObject*>& sockets);
+    static ErrorCode startGame(int gid, QList<QObject*>& sockets, Game** gameout);
+    static ErrorCode makeaWord(int uid, QObject* socket, QList<QObject*>& sockets, QString word, Game** gameout);
+    static ErrorCode offeraWord(int uid, QObject *socket, QList<QObject*> &sockets, QString word, Game** gameout);
+    static ErrorCode askQuestion(int uid, QObject* socket, QList<QObject*> &sockets, QString question, Game** gameout);
+    static ErrorCode breakContact(int uid, QObject* socket, QList<QObject*> &sockets, QString word, Game** gameout);
+private:
+    static void reset(Game game);
 };
 
 #endif // GAMEACTIONS_H
