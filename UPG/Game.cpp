@@ -129,7 +129,12 @@ bool Game::isObserver(User *user)
 
 void Game::reset()
 {
-
+    m_openedChars = 0;
+    m_state = PREGAME;
+    m_activePlayers.clear();
+    m_host = NULL;
+    m_question = QString();
+    m_word = QString();
 }
 
 void Game::openNextChar()
@@ -191,7 +196,7 @@ ErrorCode Game::addUser(User *user)
 ErrorCode Game::chooseHost()
 {
     int temp = randomInt(0, m_players.count() - 1);
-    m_guessers.insert(m_players.value(temp)->getSocket(), NULL);
+    m_players.value(temp)->getSocket();
     return SUCCESS;
 }
 
