@@ -5,7 +5,7 @@
 User::User(int uid, QObject* socket)
 {
     m_uid = uid;
-    m_gid = NULL;
+    m_gid = -1;
     m_socket = socket;
 }
 
@@ -35,9 +35,9 @@ ErrorCode User::setCurrentGid(int gid)
 
 ErrorCode User::removeCurrentGid()
 {
-    if (m_gid == NULL) return USER_IS_NOT_IN_GAME;
+    if (m_gid == -1) return USER_IS_NOT_IN_GAME;
 
-    m_gid = NULL;
+    m_gid = -1;
 
     return SUCCESS;
 }

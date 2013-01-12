@@ -116,18 +116,22 @@ QString QParser::toString(Game *game)
 
     if (state >= Game::QUESTION_ASKED)
     {
-        result.append(QString("<question>%1</question>").arg(game->getQuestion()));
-        // send asker uid
+        result.append(QString("<question>%1</question>").arg(game->getQuestion()));        
     }
 
+    QList<QPair<int, QString> > temp;
+    game->getActivePlayers(temp);
     if (state >= Game::CONTACT)
     {
-        // send other uid
+        result.append(QString("<firstActivePlayer>%1</firstActivePlayer>").arg(temp[0].first));
+        result.append(QString("<secondActivePlayer>%1</secondActivePlayer>").arg(temp[1].first));
     }
 
     if (state >= Game::CONTACT_SUCCEED)
     {
-        // send all 3 words
+        result.append(QString("<firstWord>%1</firstWord>").arg(temp[0].second));
+        result.append(QString("<secondWord>%1</secondWord>").arg(temp[1].second));
+        result.append(QString("<hostWord>%1</hostWord>").arg(temp[2].second));
     }
 
     return result;
@@ -155,12 +159,14 @@ QString QParser::toString(QList<Game *>& games)
         // <name>OLOLO</name>
         // <curPlayers>10</curPlayers>
         // <maxPlayers>15</maxPlayers>
+        result.append("<game>");
         result.append(QString("<gid>%1</gid>").arg(game->getGid()));
         result.append("<name>");
         result.append(game->getName());
         result.append("</name>");
         result.append(QString("<curPlayers>%1</curPlayers>").arg(game->getCurUserCount()));
         result.append(QString("<maxPlayers>%1</maxPlayers>").arg(game->getMaxUserCount()));
+        result.append("</game>");
     }
 
     return result;

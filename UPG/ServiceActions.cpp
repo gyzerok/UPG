@@ -52,10 +52,12 @@ ErrorCode ServiceActions::logout(QObject *socket)
         {
             int uid = user->getUid();
             registry->removeUser(uid);
-            int gid;
-            err = user->removeCurrentGid();
-            QObject* emptyObject; QList<QObject*>* emptyList; Game* emptyGame;
-            ServiceActions::exitGame(uid, emptyObject, *emptyList, &emptyGame);
+            int gid = user->getCurrentGid();
+            if (gid > -1)
+            {
+                QObject* emptyObject; QList<QObject*>* emptyList; Game* emptyGame;
+                ServiceActions::exitGame(uid, emptyObject, *emptyList, &emptyGame);
+            }
             SafeRelease(&user);
         }
     }

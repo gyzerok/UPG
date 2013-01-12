@@ -60,6 +60,8 @@ void QServerSide::onDisconnected()
 {
     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
 
+    emit clientDisconnected(socket);
+
     qDebug() << "Disconnecting client... Socket id:" << socket->socketDescriptor();
 
     socket->close();
