@@ -115,13 +115,13 @@ void QController::onRequestReceived(QObject* socket, QString request)
 
         case Action::S_GET_GAME_LIST:
             err = ServiceActions::getGameList(uid, socket, sockets, glist);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(glist));
             break;
 
         case Action::S_CHANGE_USER_ROLE:
             err = ServiceActions::changeUserRole(uid, socket, sockets, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
@@ -132,7 +132,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             parser->next(&tag, &value);
             if (tag == "gid")
                 err = GameActions::startGame(value.toInt(), sockets, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
@@ -140,7 +140,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             parser->next(&tag, &value);
             if (tag == "word")
                 err = GameActions::makeaWord(uid, socket, sockets, value, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
@@ -148,7 +148,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             parser->next(&tag, &value);
             if (tag == "word")
                 err = GameActions::askQuestion(uid, socket, sockets, value, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
@@ -156,7 +156,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             parser->next(&tag, &value);
             if (tag == "word")
                 err = GameActions::offeraWord(uid, socket, sockets, value, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
@@ -164,7 +164,7 @@ void QController::onRequestReceived(QObject* socket, QString request)
             parser->next(&tag, &value);
             if (tag == "word")
                 err = GameActions::breakContact(uid, socket, sockets, value, &game);
-            if (err = SUCCESS)
+            if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
 
