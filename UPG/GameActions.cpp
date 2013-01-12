@@ -16,6 +16,9 @@ ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets, Game** gameo
     Game* game;
     err = registry->getGame(gid, &game);
 
+    if ( err == SUCCESS )
+        game->reset();
+
 
     QList<User*> users;
     if (err == SUCCESS)

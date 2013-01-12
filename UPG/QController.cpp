@@ -115,8 +115,16 @@ void QController::onRequestReceived(QObject* socket, QString request)
 
         case Action::S_GET_GAME_LIST:
             err = ServiceActions::getGameList(uid, socket, sockets, glist);
-            msg.append(QParser::toString(glist));
+            if (err = SUCCESS)
+                msg.append(QParser::toString(glist));
             break;
+
+        case Action::S_CHANGE_USER_ROLE:
+            err = ServiceActions::changeUserRole(uid, socket, sockets, &game);
+            if (err = SUCCESS)
+                msg.append(QParser::toString(game));
+            break;
+
         /*
                     GAME SIDE ACTIONS
         */

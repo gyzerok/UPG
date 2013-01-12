@@ -72,7 +72,6 @@ private:
     QList<User*>                m_observers;
 
     QList<QPair<int, QString> > m_activePlayers;
-    QMap<QObject*, QString>     m_guessers;
     User*                       m_host;
     QString                     m_question;
     QString                     m_word;
