@@ -26,7 +26,7 @@ int User::getCurrentGid()
 
 ErrorCode User::setCurrentGid(int gid)
 {
-    if (m_gid != NULL) return USER_ALREADY_IN_GAME;
+    if (m_gid != -1) return USER_ALREADY_IN_GAME;
 
     m_gid = gid;
 

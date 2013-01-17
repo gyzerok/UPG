@@ -129,9 +129,9 @@ void QController::onRequestReceived(QObject* socket, QString request)
                     GAME SIDE ACTIONS
         */
         case Action::G_START_GAME:
-            parser->next(&tag, &value);
-            if (tag == "gid")
-                err = GameActions::startGame(value.toInt(), sockets, &game);
+            //parser->next(&tag, &value);
+            //if (tag == "gid")
+            err = GameActions::startGame(value.toInt(), sockets, &game);
             if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;

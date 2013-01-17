@@ -196,7 +196,7 @@ ErrorCode Game::addUser(User *user)
 ErrorCode Game::chooseHost()
 {
     int temp = randomInt(0, m_players.count() - 1);
-    m_players.value(temp)->getSocket();
+    m_host = m_players.value(temp);//->getUid();
     return SUCCESS;
 }
 

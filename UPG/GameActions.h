@@ -11,7 +11,7 @@ class GameActions
 {
 public:
     GameActions();
-    static ErrorCode startGame(int gid, QList<QObject*>& sockets, Game** gameout);
+    static ErrorCode startGame(int uid, QList<QObject*>& sockets, Game** gameout);
     static ErrorCode makeaWord(int uid, QObject* socket, QList<QObject*>& sockets, QString word, Game** gameout);
     static ErrorCode offeraWord(int uid, QObject *socket, QList<QObject*> &sockets, QString word, Game** gameout);
     static ErrorCode askQuestion(int uid, QObject* socket, QList<QObject*> &sockets, QString question, Game** gameout);

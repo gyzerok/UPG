@@ -82,14 +82,17 @@ QString QParser::toString(Game *game)
     // <name>имя</name>
     // <max_players>1</max_players>
     QString result;
+    if (game == NULL)
+        return "<name>DELETED</name><state>0</state><players></players><observers></observers>";
     Game::GameState state; game->getState(state);
-    result.append(QString("<state>%1<state>").arg(state));
+    result.append(QString("<name>%1</name>").arg(game->getName()));
+    result.append(QString("<state>%1</state>").arg(state));
 
     result.append("<players>");
     QList<User*> players; game->getPlayers(players);
     foreach (User* player, players)
     {
-        result.append("<uid>%1</uid>").arg(player->getUid());
+        result.append(QString("<uid>%1</uid>").arg(player->getUid()));
     }
     result.append("</players>");
 
@@ -110,22 +113,28 @@ QString QParser::toString(Game *game)
 
     if (state >= Game::WORD_MADE_UP)
     {
-        result.append(QString("<sourceWord>%1</sourceWord>").arg(game->getSourceWord()));
-        result.append(QString("<openedChars>%1</openedChars>").arg(game->getOpenedChars()));
-    }
-
-    if (state >= Game::QUESTION_ASKED)
-    {
-        result.append(QString("<question>%1</question>").arg(game->getQuestion()));        
+        result.append(QString("<sourceword>%1</sourceword>").arg(game->getSourceWord()));
+        result.append(QString("<openedchars>%1</openedchars>").arg(game->getOpenedChars()));
     }
 
     QList<QPair<int, QString> > temp;
     game->getActivePlayers(temp);
-    if (state >= Game::CONTACT)
+    if (state >= Game::QUESTION_ASKED)
+    {
+        result.append(QString("<question>%1</question>").arg(game->getQuestion()));
+        result.append("<activeusers>");
+        if (temp.count() == 1)
+            result.append(QString("<uid>%1</uid>").arg(temp[0].first));
+        if (temp.count() == 2)
+            result.append(QString("<uid>%1</uid>").arg(temp[1].first));
+        result.append("</activeusers>");
+    }
+
+    /*if (state >= Game::CONTACT)
     {
         result.append(QString("<firstActivePlayer>%1</firstActivePlayer>").arg(temp[0].first));
         result.append(QString("<secondActivePlayer>%1</secondActivePlayer>").arg(temp[1].first));
-    }
+    }*/
 
     if (state >= Game::CONTACT_SUCCEED)
     {
@@ -161,9 +170,7 @@ QString QParser::toString(QList<Game *>& games)
         // <maxPlayers>15</maxPlayers>
         result.append("<game>");
         result.append(QString("<gid>%1</gid>").arg(game->getGid()));
-        result.append("<name>");
-        result.append(game->getName());
-        result.append("</name>");
+        result.append(QString("<name>%1</name>").arg(game->getName()));
         result.append(QString("<curPlayers>%1</curPlayers>").arg(game->getCurUserCount()));
         result.append(QString("<maxPlayers>%1</maxPlayers>").arg(game->getMaxUserCount()));
         result.append("</game>");

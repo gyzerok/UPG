@@ -28,7 +28,6 @@ void QServerSide::onReadyRead()
     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
     QString* request = new QString(socket->readAll());
 
-    qDebug() << request->toAscii();
     if (*request == "<policy-file-request/>")
     {
         QString policy = "<cross-domain-policy><allow-access-from domain='*' to-ports='*'/></cross-domain-policy>";
@@ -37,7 +36,9 @@ void QServerSide::onReadyRead()
     }
     else
     {
+        qDebug() << "REQUEST";
         qDebug() << "Socket: " << socket->socketDescriptor();
+        qDebug() << request->toAscii() << "\n";
         emit requestReceived(socket, *request);
         //QString temp = "ololo";
         //socket->write(temp.toAscii().append(QChar::Null));
@@ -46,11 +47,12 @@ void QServerSide::onReadyRead()
 
 void QServerSide::onResponseReady(QList<QObject*> sockets, QString response)
 {
-    qDebug() << response.toAscii();
     foreach (QObject* socket, sockets)
     {
         QTcpSocket* target = qobject_cast<QTcpSocket*>(socket);
+        qDebug() << "RESPONSE";
         qDebug() << "Socket: " << target->socketDescriptor();
+        qDebug() << response.toAscii() << "\n";
         target->write(response.toUtf8().append(QChar::Null));
         target->flush();
     }

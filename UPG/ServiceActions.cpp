@@ -51,13 +51,13 @@ ErrorCode ServiceActions::logout(QObject *socket)
         if (socket == user->getSocket())
         {
             int uid = user->getUid();
-            registry->removeUser(uid);
             int gid = user->getCurrentGid();
             if (gid > -1)
             {
-                QObject* emptyObject; QList<QObject*>* emptyList; Game* emptyGame;
+                QObject* emptyObject = NULL; QList<QObject*>* emptyList = NULL; Game* emptyGame = NULL;
                 ServiceActions::exitGame(uid, emptyObject, *emptyList, &emptyGame);
             }
+            registry->removeUser(uid);
             SafeRelease(&user);
         }
     }
@@ -98,10 +98,10 @@ ErrorCode ServiceActions::joinGame(int uid, int gid, QObject* socket, QList<QObj
         err = registry->getUser(uid, &user);
 
     if (err == SUCCESS)
-        err = game->addUser(user);
+        err = user->setCurrentGid(game->getGid());
 
     if (err == SUCCESS)
-        err = user->setCurrentGid(game->getGid());
+        err = game->addUser(user);
 
     //
     QList<User*> users;
@@ -136,6 +136,9 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
     User* user;
     err = registry->getUser(uid, &user);
 
+    if (user->getCurrentGid() == -1)
+        return USER_IS_NOT_IN_GAME;
+
     int gid;
     if (err == SUCCESS)
         gid = user->getCurrentGid();
@@ -147,26 +150,30 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
     if (err == SUCCESS)
         err = game->removeUser(user);
 
-    QList<User*> users;
-    if (err == SUCCESS)
-        err = game->getUsers(users);
-
-    if (err == SUCCESS)
-    {
-        sockets.clear();
-        foreach (User* iUser, users)
-            sockets.append(iUser->getSocket());
-    }
-
-    if (err == SUCCESS)
-        *outGame = game;
-
     if (err == SUCCESS)
         if (game->isEmpty())
         {
             int gid = game->getGid();
             registry->removeGame(gid);
             SafeRelease(&game);
+            *outGame = NULL;
+        }
+        else
+        {
+            if (socket != NULL)
+            {
+                QList<User*> users;
+                if (err == SUCCESS)
+                    err = game->getUsers(users);
+
+                if (err == SUCCESS)
+                {
+                    sockets.clear();
+                    foreach (User* iUser, users)
+                        sockets.append(iUser->getSocket());
+                }
+            }
+            *outGame = game;
         }
 
     return err;
@@ -200,13 +207,14 @@ ErrorCode ServiceActions::changeUserRole(int uid, QObject *socket, QList<QObject
 
     int gid = user->getCurrentGid();
     Game* game;
-    err = registry->getGame(gid, &game);
+    if (err == SUCCESS)
+        err = registry->getGame(gid, &game);
 
-    if (err == SUCCESS && game->isObserver(user))
-        err = game->makePlayer(user);
-
-    if (err == SUCCESS && game->isPlayer(user))
-        err = game->makeObserver(user);
+    if (err == SUCCESS)
+        if (game->isObserver(user))
+            err = game->makePlayer(user);
+        else
+            err = game->makeObserver(user);
 
     QList<User*> users;
     if (err == SUCCESS)

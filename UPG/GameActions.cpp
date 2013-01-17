@@ -7,14 +7,18 @@ GameActions::GameActions()
 {
 }
 
-ErrorCode GameActions::startGame(int gid, QList<QObject*>& sockets, Game** gameout)
+ErrorCode GameActions::startGame(int uid, QList<QObject*>& sockets, Game** gameout)
 {
     ErrorCode err = UNKNOWN_ERROR;
 
     Registry* registry = Registry::instance();
 
+    User* usr;
+    err = registry->getUser(uid, &usr);
+
     Game* game;
-    err = registry->getGame(gid, &game);
+    if(err == SUCCESS)
+        err = registry->getGame(usr->getCurrentGid(), &game);
 
     if ( err == SUCCESS )
         game->reset();
