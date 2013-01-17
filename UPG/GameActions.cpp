@@ -111,7 +111,7 @@ ErrorCode GameActions::offeraWord(int uid, QObject *socket, QList<QObject*>& soc
     if (err == SUCCESS)
         err = game->getState(gameState);
 
-    if (err == SUCCESS && gameState == Game::QUESTION_ASKED)
+    if (err == SUCCESS && gameState != Game::QUESTION_ASKED)
         return YOU_CAN_NOT_OFFER_A_WORD_NOW;
 
     err = game->addActivePlayer(uid, word);
