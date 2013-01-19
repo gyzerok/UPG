@@ -207,7 +207,6 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
             {
                 game->openWord();
                 err = game->changeState(Game::WORD_GUESSED);
-
             }
             else
             {
@@ -237,6 +236,36 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
         *gameout = game;
     }
 
+    return err;
+}
+
+ErrorCode GameActions::endGame(int uid, QObject *socket, QList<QObject *> &sockets, Game **outGame)
+{
+    ErrorCode err = UNKNOWN_ERROR;
+    Registry* registry = Registry::instance();
+
+    User* user;
+    err = registry->getUser(uid, &user);
+
+    Game* game;
+    if (err == SUCCESS)
+        err = registry->getGame(user->getCurrentGid(),&game);
+
+    Game::GameState gameState;
+    if (err == SUCCESS)
+        err = game->getState(gameState);
+
+    if ( gameState == Game::WORD_GUESSED )
+    {
+        err = game->changeState(Game::PREGAME);
+    }
+
+    QList<User*> users;
+    game->getPlayers(users);
+    foreach (User* usr, users)
+        sockets.append(usr->getSocket());
+
+    *outGame = game;
     return err;
 }
 

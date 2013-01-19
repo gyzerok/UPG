@@ -243,3 +243,4 @@ ErrorCode ServiceActions::changeUserRole(int uid, QObject *socket, QList<QObject
 
     return err;
 }
+

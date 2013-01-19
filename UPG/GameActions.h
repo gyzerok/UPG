@@ -16,6 +16,7 @@ public:
     static ErrorCode offeraWord(int uid, QObject *socket, QList<QObject*> &sockets, QString word, Game** gameout);
     static ErrorCode askQuestion(int uid, QObject* socket, QList<QObject*> &sockets, QString question, Game** gameout);
     static ErrorCode breakContact(int uid, QObject* socket, QList<QObject*> &sockets, QString word, Game** gameout);
+    static ErrorCode endGame(int uid, QObject* socket, QList<QObject*>& sockets, Game** outGame);
 private:
     static void reset(Game game);
 };
