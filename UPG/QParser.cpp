@@ -91,17 +91,13 @@ QString QParser::toString(Game *game)
     result.append("<players>");
     QList<User*> players; game->getPlayers(players);
     foreach (User* player, players)
-    {
         result.append(QString("<uid>%1</uid>").arg(player->getUid()));
-    }
     result.append("</players>");
 
     result.append("<observers>");
     QList<User*> observers; game->getObservers(observers);
     foreach (User* observer, observers)
-    {
         result.append(QString("<uid>%1</uid>").arg(observer->getUid()));
-    }
     result.append("</observers>");
 
     if (state >= Game::GAME_STARTED)
@@ -123,9 +119,9 @@ QString QParser::toString(Game *game)
     {
         result.append(QString("<question>%1</question>").arg(game->getQuestion()));
         result.append("<activeusers>");
-        if (temp.count() == 1)
+        if (temp.count() == 1 || temp.count() == 2 || temp.count() == 3)
             result.append(QString("<uid>%1</uid>").arg(temp[0].first));
-        if (temp.count() == 2)
+        if (temp.count() == 2 || temp.count() == 3)
             result.append(QString("<uid>%1</uid>").arg(temp[1].first));
         result.append("</activeusers>");
     }

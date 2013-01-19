@@ -155,6 +155,7 @@ ErrorCode GameActions::askQuestion(int uid, QObject *socket, QList<QObject *> &s
             game->getUsers(temp);
             foreach (User* usr, temp)
                 sockets.append(usr->getSocket());
+            game->clearActive();
             *gameout = game;
         }
     }
@@ -176,6 +177,7 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
     Game::GameState gameState;
     if (err == SUCCESS)
         err = game->getState(gameState);
+
     if ( err == SUCCESS )
     {
         game->addActivePlayer(uid,word);
@@ -210,15 +212,16 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
             if (trigga)
             {
                 game->changeState(Game::CONTACT_SUCCEED);
+                game->openNextChar();
             }
-
-            QList<User*> users;
-            game->getPlayers(users);
-            foreach (User* usr, users)
-                sockets.append(usr->getSocket());
-
-            *gameout = game;
         }
+
+        QList<User*> users;
+        game->getPlayers(users);
+        foreach (User* usr, users)
+            sockets.append(usr->getSocket());
+
+        *gameout = game;
     }
 
     return err;

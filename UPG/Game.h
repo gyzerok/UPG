@@ -58,6 +58,7 @@ public:
     void                        reset();
     void                        openNextChar();
     void                        setQuestion(QString question);
+    void                        clearActive();
 
 private:
     int                         randomInt(int low, int high);

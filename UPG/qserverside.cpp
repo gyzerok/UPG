@@ -47,15 +47,16 @@ void QServerSide::onReadyRead()
 
 void QServerSide::onResponseReady(QList<QObject*> sockets, QString response)
 {
+    qDebug() << "RESPONSE";
+    qDebug() << "Sockets:";
     foreach (QObject* socket, sockets)
     {
         QTcpSocket* target = qobject_cast<QTcpSocket*>(socket);
-        qDebug() << "RESPONSE";
-        qDebug() << "Socket: " << target->socketDescriptor();
-        qDebug() << response.toAscii() << "\n";
+        qDebug() << target->socketDescriptor();
         target->write(response.toUtf8().append(QChar::Null));
         target->flush();
     }
+    qDebug() << response.toAscii() << "\n";
 }
 
 void QServerSide::onDisconnected()

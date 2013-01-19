@@ -147,6 +147,11 @@ void Game::setQuestion(QString question)
     m_question = question;
 }
 
+void Game::clearActive()
+{
+    m_activePlayers.clear();
+}
+
 ErrorCode Game::getUsers(QList<User*>& users)
 {
     QList<User*> result;

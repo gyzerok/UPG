@@ -167,11 +167,8 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
                     err = game->getUsers(users);
 
                 if (err == SUCCESS)
-                {
-                    sockets.clear();
                     foreach (User* iUser, users)
                         sockets.append(iUser->getSocket());
-                }
             }
             *outGame = game;
         }
