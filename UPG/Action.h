@@ -19,7 +19,8 @@ public:
         G_BREAK_CONTACT,
         G_START_GAME,
         G_MAKE_A_WORD,
-        G_OFFER_A_WORD
+        G_OFFER_A_WORD,
+        G_END_GAME,
     };
 };
 
