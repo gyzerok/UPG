@@ -73,6 +73,11 @@ QString Game::getQuestion()
     return m_question;
 }
 
+void Game::openWord()
+{
+    m_openedChars = m_word.count();
+}
+
 ErrorCode Game::addActivePlayer(int uid, QString word)
 {
     QPair<int, QString> temp;
