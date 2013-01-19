@@ -18,7 +18,8 @@ public:
         QUESTION_ASKED,
         CONTACT,
         CONTACT_SUCCEED,
-        CONTACT_FAILED
+        CONTACT_FAILED,
+        WORD_GUESSED
     };
 
     Game();

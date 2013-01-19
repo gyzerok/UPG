@@ -116,7 +116,13 @@ ErrorCode GameActions::offeraWord(int uid, QObject *socket, QList<QObject*>& soc
 
     err = game->addActivePlayer(uid, word);
     if (err == SUCCESS && game->getActivePlayersCount() == 2)
-        err = game->changeState(Game::CONTACT);
+    {
+        QString gameword = game->getSourceWord();
+        if ( word == gameword )
+            err = game->changeState(Game::WORD_GUESSED);
+        else
+            err = game->changeState(Game::CONTACT);
+    }
     if (err == SUCCESS)
     {
         QList<User*> temp;
@@ -213,6 +219,8 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
             {
                 game->changeState(Game::CONTACT_SUCCEED);
                 game->openNextChar();
+                if ( game->getOpenedChars() == game->getSourceWord().count() )
+                    err = game->changeState(Game::WORD_GUESSED);
             }
         }
 
