@@ -119,7 +119,10 @@ ErrorCode GameActions::offeraWord(int uid, QObject *socket, QList<QObject*>& soc
     {
         QString gameword = game->getSourceWord();
         if ( word == gameword )
+        {
+            game->openWord();
             err = game->changeState(Game::WORD_GUESSED);
+        }
         else
             err = game->changeState(Game::CONTACT);
     }

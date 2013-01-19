@@ -41,6 +41,7 @@ public:
     QString                     getName();
     QString                     getSourceWord();
     QString                     getQuestion();
+    void                        openWord();
 
     ErrorCode                   addActivePlayer(int uid, QString word);
     ErrorCode                   addUser(User* user);
