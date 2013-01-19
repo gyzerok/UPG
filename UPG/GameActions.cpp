@@ -207,25 +207,28 @@ ErrorCode GameActions::breakContact(int uid, QObject *socket, QList<QObject *> &
             {
                 game->openWord();
                 err = game->changeState(Game::WORD_GUESSED);
+
             }
-            for ( int i = 0; i<game->getOpenedChars(); i++)
+            else
             {
-                if ( firstWord[i] != secondWord[i] )
+                for ( int i = 0; i<game->getOpenedChars(); i++)
                 {
-                    game->changeState(Game::CONTACT_FAILED);
-                    trigga = false;
-                    break;
+                    if ( firstWord[i] != secondWord[i] )
+                    {
+                        game->changeState(Game::CONTACT_FAILED);
+                        trigga = false;
+                        break;
+                    }
+                }
+                if (trigga)
+                {
+                    game->changeState(Game::CONTACT_SUCCEED);
+                    game->openNextChar();
+                    if ( game->getOpenedChars() == game->getSourceWord().count() )
+                        err = game->changeState(Game::WORD_GUESSED);
                 }
             }
-            if (trigga)
-            {
-                game->changeState(Game::CONTACT_SUCCEED);
-                game->openNextChar();
-                if ( game->getOpenedChars() == game->getSourceWord().count() )
-                    err = game->changeState(Game::WORD_GUESSED);
-            }
         }
-
         QList<User*> users;
         game->getPlayers(users);
         foreach (User* usr, users)
