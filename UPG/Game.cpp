@@ -34,6 +34,8 @@ ErrorCode Game::changeState(Game::GameState state)
       TODO:
       Сделать свитч-кейс
     */
+    if (state == Game::PREGAME)
+        reset();
     m_state = state;
     return SUCCESS;
 }

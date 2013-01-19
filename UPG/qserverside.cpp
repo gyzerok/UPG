@@ -26,7 +26,9 @@ void QServerSide::incomingConnection(int handle)
 void QServerSide::onReadyRead()
 {
     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
-    QString* request = new QString(socket->readAll());
+    QString* request = new QString();
+    *request = request->fromUtf8(socket->readAll());
+
 
     if (*request == "<policy-file-request/>")
     {
