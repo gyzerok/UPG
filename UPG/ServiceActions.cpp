@@ -166,7 +166,7 @@ ErrorCode ServiceActions::exitGame(int uid, QObject *socket, QList<QObject*>& so
                 if (err == SUCCESS)
                     err = game->getPlayers(players);
 
-                if (err == SUCCESS && players.count() < 3)
+                if (err == SUCCESS && (players.count() < 3 || game->isHost(user)))
                     game->changeState(Game::PREGAME);
 
                 QList<User*> users;
@@ -224,7 +224,7 @@ ErrorCode ServiceActions::changeUserRole(int uid, QObject *socket, QList<QObject
     if (err == SUCCESS)
         err = game->getPlayers(players);
 
-    if (err == SUCCESS && players.count() < 3)
+    if (err == SUCCESS && (players.count() < 3 || game->isHost(user)))
         game->changeState(Game::PREGAME);
 
     QList<User*> users;

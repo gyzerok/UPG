@@ -50,7 +50,7 @@ public:
     ErrorCode                   makeObserver(User* user);
 
     ErrorCode                   removeUser(User* user);
-
+    bool                        isHost(User* user);
     bool                        checkPass(QString pass);
     bool                        isEmpty();
     bool                        isPlayer(User* user);

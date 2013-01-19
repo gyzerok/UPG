@@ -108,6 +108,11 @@ ErrorCode Game::removeUser(User *user)
     return user->removeCurrentGid();
 }
 
+bool Game::isHost(User *user)
+{
+    return m_host == user;
+}
+
 bool Game::checkPass(QString pass)
 {
     return m_pass == pass;
