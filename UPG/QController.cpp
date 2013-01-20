@@ -167,6 +167,11 @@ void QController::onRequestReceived(QObject* socket, QString request)
             if (err == SUCCESS)
                 msg.append(QParser::toString(game));
             break;
+        case Action::G_END_GAME:
+            err = GameActions::endGame(uid, socket, sockets, &game);
+            if (err == SUCCESS)
+                msg.append(QParser::toString(game));
+            break;
 
         default:
             err = UNKNOWN_REQUEST_TYPE;
