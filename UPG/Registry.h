@@ -16,9 +16,11 @@ public:
 
     bool                    isUserOnline(int uid);
     bool                    isGameExist(int gid);
+    bool                    isWordExist(QString word);
 
     void                    addUser(int uid, User* user);
     void                    addGame(int gid, Game* game);
+    void                    wordsSet(QList<QString>& words);
     void                    removeUser(int uid);
     void                    removeGame(int gid);
 
@@ -29,6 +31,7 @@ public:
 
     QMap<int, Game*>        m_games;
     QMap<int, User*>        m_users;
+    QList<QString>          m_words;
 
 private:
     Registry();

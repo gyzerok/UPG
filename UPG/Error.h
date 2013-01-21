@@ -26,7 +26,8 @@ enum ErrorCode
     ARE_YOU_KIDDING_ME                          = 17,
     USER_ALREADY_OBSERVER                       = 18,
     USER_ALREADY_PLAYER                         = 19,
-    FAILED_TO_BREAK_CONTACT                     = 20
+    FAILED_TO_BREAK_CONTACT                     = 20,
+    WORD_DOES_NOT_EXIST                         = 21
 };
 
 class Error

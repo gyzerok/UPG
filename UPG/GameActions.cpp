@@ -78,6 +78,12 @@ ErrorCode GameActions::makeaWord(int uid, QObject* socket, QList<QObject*>& sock
         }
         else
         {
+            if (!registry->isWordExist(word))
+            {
+                sockets.clear();
+                sockets.append(socket);
+                return WORD_DOES_NOT_EXIST;
+            }
             game->setWord(word);
             game->openNextChar();
             game->changeState(Game::WORD_MADE_UP);
@@ -100,6 +106,12 @@ ErrorCode GameActions::offeraWord(int uid, QObject *socket, QList<QObject*>& soc
     ErrorCode err = UNKNOWN_ERROR;
     Registry* registry = Registry::instance();
 
+    if (!registry->isWordExist(word))
+    {
+        sockets.clear();
+        sockets.append(socket);
+        return WORD_DOES_NOT_EXIST;
+    }
     User* user;
     err = registry->getUser(uid, &user);
 

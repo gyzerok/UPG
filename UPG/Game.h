@@ -12,14 +12,14 @@ class Game
 public:
     enum GameState
     {
-        PREGAME = 0,
-        GAME_STARTED,
-        WORD_MADE_UP,
-        QUESTION_ASKED,
-        CONTACT,
-        CONTACT_SUCCEED,
-        CONTACT_FAILED,
-        WORD_GUESSED
+        PREGAME             = 0,
+        GAME_STARTED        = 1,
+        WORD_MADE_UP        = 2,
+        QUESTION_ASKED      = 3,
+        CONTACT             = 4,
+        CONTACT_SUCCEED     = 5,
+        CONTACT_FAILED      = 6,
+        WORD_GUESSED        = 7
     };
 
     Game();

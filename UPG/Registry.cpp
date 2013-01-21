@@ -10,6 +10,11 @@ bool Registry::isGameExist(int gid)
     return m_games.contains(gid);
 }
 
+bool Registry::isWordExist(QString word)
+{
+    return m_words.contains(word);
+}
+
 void Registry::addUser(int uid, User *user)
 {
     m_users.insert(uid, user);
@@ -18,6 +23,11 @@ void Registry::addUser(int uid, User *user)
 void Registry::addGame(int gid, Game *game)
 {
     m_games.insert(gid, game);
+}
+
+void Registry::wordsSet(QList<QString> &words)
+{
+    m_words = words;
 }
 
 void Registry::removeUser(int uid)

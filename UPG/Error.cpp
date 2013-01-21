@@ -21,6 +21,7 @@ Error::Error()
     m_errors[ARE_YOU_KIDDING_ME]                    = "Are you kidding me?";
     m_errors[USER_ALREADY_OBSERVER]                 = "You are already observer";
     m_errors[USER_ALREADY_PLAYER]                   = "You are already player";
+    m_errors[WORD_DOES_NOT_EXIST]                   = "This word does not exist!";//"Похоже вы придумали новое слово! Свяжитесь с нами и мы добавим его в словарь. А пока придумайте другое :)";
 }
 
 QString Error::getString(ErrorCode errorCode)
